@@ -1,6 +1,6 @@
 package com.example.blackcows.network
 
-import com.example.blackcows.data.remote.YoutubeAPI
+import com.example.blackcows.data.remote.SearchVideoRemoteDataSource
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -10,11 +10,11 @@ import java.util.concurrent.TimeUnit
 
 object RetrofitClient {
     private const val YOUTUBE_BASE_URL = "https://www.googleapis.com/youtube/v3/"
-    val youtubeAPI: YoutubeAPI by lazy { createRetrofit(YOUTUBE_BASE_URL).create() }
+    val searchVideoRemoteDataSource: SearchVideoRemoteDataSource by lazy { createRetrofit().create(SearchVideoRemoteDataSource::class.java) }
 
-    private fun createRetrofit(baseUrl: String): Retrofit {
+    private fun createRetrofit(): Retrofit {
         return Retrofit.Builder()
-            .baseUrl(baseUrl)
+            .baseUrl(YOUTUBE_BASE_URL)
             .client(client)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
