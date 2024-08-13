@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">BlackCows</string>
     <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
+    <string name="title_search">Search</string>
     <string name="title_mypage">MyPage</string>
 
     <!-- My Page Fragment -->
