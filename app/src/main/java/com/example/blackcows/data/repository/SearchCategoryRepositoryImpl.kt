@@ -1,11 +1,11 @@
 package com.example.blackcows.data.repository
 
 import com.example.blackcows.data.model.SearchCategoryDataSource
-import com.example.blackcows.data.model.SubCategory
-import com.example.blackcows.ui.search.Category
+import com.example.blackcows.data.model.SearchSubCategory
+import com.example.blackcows.ui.search.SearchCategory
 
-class CategoryRepositoryImpl(private val searchCategoryDataSource : SearchCategoryDataSource) : CategoryRepository {
-    override fun getSubCategory(categoryType : Category): List<SubCategory> {
-        return searchCategoryDataSource.getSubCategory(categoryType)
+class SearchCategoryRepositoryImpl(private val searchCategoryDataSource : SearchCategoryDataSource) : SearchCategoryRepository {
+    override fun getSearchSubCategory(searchCategoryType : SearchCategory): List<SearchSubCategory> {
+        return searchCategoryDataSource.getSearchSubCategory(searchCategoryType)
     }
 }

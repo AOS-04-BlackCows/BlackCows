@@ -1,39 +1,39 @@
 package com.example.blackcows.data.model
 
-import com.example.blackcows.ui.search.Category
+import com.example.blackcows.ui.search.SearchCategory
 
 object SearchCategoryDataSource {
-    fun getSubCategory(categoryType : Category) : List<SubCategory> {
-        return when(categoryType) {
-            Category.HARD_WARE -> {
+    fun getSearchSubCategory(searchCategoryType : SearchCategory) : List<SearchSubCategory> {
+        return when(searchCategoryType) {
+            SearchCategory.HARD_WARE -> {
                listOf(
-                   SubCategory("CPU"),
-                   SubCategory("메인보드")
+                   SearchSubCategory("CPU"),
+                   SearchSubCategory("메인보드")
                )
             }
-            Category.SOFT_WARE -> {
+            SearchCategory.SOFT_WARE -> {
                 listOf(
-                    SubCategory("CPU"),
-                    SubCategory("메인보드")
+                    SearchSubCategory("CPU"),
+                    SearchSubCategory("메인보드")
                 )
             }
-            Category.PERIHERAL_DEVICE -> {
+            SearchCategory.PERIHERAL_DEVICE -> {
                 listOf(
-                    SubCategory("CPU"),
-                    SubCategory("메인보드")
+                    SearchSubCategory("CPU"),
+                    SearchSubCategory("메인보드")
                 )
             }
-            Category.GAMING_DEVICE -> {
+            SearchCategory.GAMING_DEVICE -> {
                 listOf(
-                    SubCategory("CPU"),
-                    SubCategory("메인보드")
+                    SearchSubCategory("CPU"),
+                    SearchSubCategory("메인보드")
                 )
             }
         }
     }
 }
 
-data class SubCategory(
+data class SearchSubCategory(
     val name : String
 )
 

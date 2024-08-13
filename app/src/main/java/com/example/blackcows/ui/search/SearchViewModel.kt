@@ -6,23 +6,23 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.CreationExtras
 import com.example.blackcows.data.model.SearchCategoryDataSource
-import com.example.blackcows.data.repository.CategoryRepository
-import com.example.blackcows.data.repository.CategoryRepositoryImpl
+import com.example.blackcows.data.repository.SearchCategoryRepository
+import com.example.blackcows.data.repository.SearchCategoryRepositoryImpl
 
-class SearchViewModel(private val categoryRepository: CategoryRepository) : ViewModel() {
+class SearchViewModel(private val searchCategoryRepository: SearchCategoryRepository) : ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
         value = "This is Search Fragment"
     }
     val text: LiveData<String> = _text
 
-    fun getSubCategory(category : Category) {
-        categoryRepository.getSubCategory(category)
+    fun getSearchSubCategory(searchCategory : SearchCategory) {
+        searchCategoryRepository.getSearchSubCategory(searchCategory)
     }
 }
 
 class SearchViewModelFactory : ViewModelProvider.Factory {
-    private val categoryRepository = CategoryRepositoryImpl(SearchCategoryDataSource)
+    private val searchCategoryRepository = SearchCategoryRepositoryImpl(SearchCategoryDataSource)
 
     override fun <T : ViewModel> create(
         modelClass: Class<T>,
@@ -30,7 +30,7 @@ class SearchViewModelFactory : ViewModelProvider.Factory {
     ): T {
 
         return SearchViewModel(
-            categoryRepository
+            searchCategoryRepository
         ) as T
     }
 }

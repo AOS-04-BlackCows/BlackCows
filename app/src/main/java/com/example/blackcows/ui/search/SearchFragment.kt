@@ -35,12 +35,12 @@ class SearchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        txtView =Category.HARD_WARE.name
-
-        val textView: TextView = binding.textDashboard
-        searchViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
-        }
+//        txtView =Category.HARD_WARE.name
+//
+//        val textView: TextView = binding.textDashboard
+//        searchViewModel.text.observe(viewLifecycleOwner) {
+//            textView.text = it
+//        }
     }
 
     override fun onDestroyView() {

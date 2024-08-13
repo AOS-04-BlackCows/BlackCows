@@ -1,8 +1,8 @@
 package com.example.blackcows.data.repository
 
-import com.example.blackcows.data.model.SubCategory
-import com.example.blackcows.ui.search.Category
+import com.example.blackcows.data.model.SearchSubCategory
+import com.example.blackcows.ui.search.SearchCategory
 
-interface CategoryRepository {
-    fun getSubCategory(categoryType : Category) : List<SubCategory>
+interface SearchCategoryRepository {
+    fun getSearchSubCategory(searchCategoryType : SearchCategory) : List<SearchSubCategory>
 }
