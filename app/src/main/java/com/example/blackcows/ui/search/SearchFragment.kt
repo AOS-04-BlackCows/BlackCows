@@ -18,29 +18,29 @@ class SearchFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
 
-    private val searchViewModel by viewModels<SearchViewModel> { SearchViewModelFactory() }
+    private val searchViewModel by viewModels<SearchViewModel> {
+        SearchViewModelFactory()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-//        val searchViewModel =
-//            ViewModelProvider(this).get(SearchViewModel::class.java)
-
         _binding = FragmentSearchBinding.inflate(inflater, container, false)
         val root: View = binding.root
-
-//        val textView: TextView = binding.textDashboard
-//        searchViewModel.text.observe(viewLifecycleOwner) {
-//            textView.text = it
-//        }
         return root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+//        txtView =Category.HARD_WARE.name
+//
+//        val textView: TextView = binding.textDashboard
+//        searchViewModel.text.observe(viewLifecycleOwner) {
+//            textView.text = it
+//        }
         searchViewModel.getVideoThumbanail()
     }
 
