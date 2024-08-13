@@ -1,15 +1,41 @@
 package com.example.blackcows.data.model
 
-data class Tools(
-    val category: Category,
+import com.example.blackcows.ui.search.Category
 
-)
-enum class Category () {
-    HARD_WARE_LIST,
-    SOFT_WARE_LIST,
-    PERIHERAL_DEVICE_LIST,
-    GAMING_DEVICE_LIST,
+object SearchCategoryDataSource {
+    fun getSubCategory(categoryType : Category) : List<SubCategory> {
+        return when(categoryType) {
+            Category.HARD_WARE -> {
+               listOf(
+                   SubCategory("CPU"),
+                   SubCategory("메인보드")
+               )
+            }
+            Category.SOFT_WARE -> {
+                listOf(
+                    SubCategory("CPU"),
+                    SubCategory("메인보드")
+                )
+            }
+            Category.PERIHERAL_DEVICE -> {
+                listOf(
+                    SubCategory("CPU"),
+                    SubCategory("메인보드")
+                )
+            }
+            Category.GAMING_DEVICE -> {
+                listOf(
+                    SubCategory("CPU"),
+                    SubCategory("메인보드")
+                )
+            }
+        }
+    }
 }
+
+data class SubCategory(
+    val name : String
+)
 
 // Todo Category init
 
@@ -24,9 +50,4 @@ val depth2List = mapOf(
 )
 
 
-
-
-fun depth1Select () {
-
-}
 
