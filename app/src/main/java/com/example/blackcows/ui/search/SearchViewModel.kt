@@ -1,5 +1,6 @@
 package com.example.blackcows.ui.search
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -19,6 +20,12 @@ class SearchViewModel(private val searchCategoryRepository: SearchCategoryReposi
     fun getSearchSubCategory(searchCategory : SearchCategory) {
         searchCategoryRepository.getSearchSubCategory(searchCategory)
     }
+    fun getVideoThumbanail(){
+        viewModelScope.launch {
+            Log.d("SearchViewModel_data",repository.getTrendingVideos("").toString())
+            repository.getTrendingVideos("하드디스크")
+        }
+    }
 }
 
 class SearchViewModelFactory : ViewModelProvider.Factory {
@@ -28,9 +35,11 @@ class SearchViewModelFactory : ViewModelProvider.Factory {
         modelClass: Class<T>,
         extras: CreationExtras
     ): T {
-
         return SearchViewModel(
             searchCategoryRepository
+//         val repository = YoutubeRepositoryImpl(RetrofitClient.searchVideoRemoteDataSource)
+//         return SearchViewModel(
+//             repository
         ) as T
     }
 }
