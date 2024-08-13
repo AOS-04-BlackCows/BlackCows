@@ -1,10 +1,11 @@
 package com.example.blackcows.data.repository
 
 import com.example.blackcows.data.model.VideoResponse
+import com.example.blackcows.data.remote.SearchVideoRemoteDataSource
 import com.example.blackcows.network.RetrofitClient
 
-class YoutubeRepositoryImpl : VideoRepository {
+class YoutubeRepositoryImpl(private val searchVideoRemoteDataSource: SearchVideoRemoteDataSource) : VideoRepository {
     override suspend fun getTrendingVideos(region: String): VideoResponse {
-        return RetrofitClient.youtubeAPI.getTrendingVideos(regionCode = region)
+        return searchVideoRemoteDataSource.getTrendingVideos()
     }
 }
