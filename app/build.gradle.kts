@@ -57,6 +57,7 @@ dependencies {
 
     // Retrofit, Gson
     implementation(libs.retrofit)
+    implementation(libs.gson)
     implementation(libs.retrofit.converter.gson)
     implementation(libs.okhttp.logging.interceptor)
 
@@ -67,4 +68,7 @@ dependencies {
     // Glide
     implementation(libs.image.glide)
     annotationProcessor(libs.image.glide)
+
+    // Coil
+    implementation("io.coil-kt:coil:0.10.0")
 }
