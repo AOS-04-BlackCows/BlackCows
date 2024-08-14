@@ -41,7 +41,7 @@ class SearchFragment : Fragment() {
 //        searchViewModel.text.observe(viewLifecycleOwner) {
 //            textView.text = it
 //        }
-        searchViewModel.getVideoThumbanail()
+//        searchViewModel.getVideoThumbanail()
     }
 
     override fun onDestroyView() {

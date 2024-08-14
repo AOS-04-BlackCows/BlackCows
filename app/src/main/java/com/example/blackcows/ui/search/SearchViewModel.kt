@@ -20,12 +20,12 @@ class SearchViewModel(private val searchCategoryRepository: SearchCategoryReposi
     fun getSearchSubCategory(searchCategory : SearchCategory) {
         searchCategoryRepository.getSearchSubCategory(searchCategory)
     }
-    fun getVideoThumbanail(){
-        viewModelScope.launch {
-            Log.d("SearchViewModel_data",repository.getTrendingVideos("").toString())
-            repository.getTrendingVideos("하드디스크")
-        }
-    }
+//    fun getVideoThumbanail(){
+//        viewModelScope.launch {
+//            Log.d("SearchViewModel_data",repository.getTrendingVideos("").toString())
+//            repository.getTrendingVideos("하드디스크")
+//        }
+//    }
 }
 
 class SearchViewModelFactory : ViewModelProvider.Factory {
