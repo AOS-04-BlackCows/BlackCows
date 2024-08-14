@@ -7,12 +7,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.CreationExtras
-import com.example.blackcows.ListItem
 import com.example.blackcows.data.repository.VideoRepository
 import com.example.blackcows.data.repository.YoutubeRepositoryImpl
 import com.example.blackcows.network.RetrofitClient
-import com.example.blackcows.toVideoItem
 import kotlinx.coroutines.launch
+import com.example.blackcows.ListItem
+import com.example.blackcows.toVideoItem
 import okio.IOException
 import retrofit2.HttpException
 
