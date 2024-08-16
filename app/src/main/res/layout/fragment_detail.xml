@@ -1,22 +1,110 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<!--    CollapsingToolbarLayout을 사용하기 위해서는 꼭 CoordinatorLayout을 사용해야함-->
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.detail.DetailFragment">
 
-    <view
-        class="androidx.appcompat.app.AlertController$RecycleListView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="4dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+<!--   appBarLayout 안에 CollapsingToolbarLayout을 넣음 -->
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+<!--        스크롤시 접히거나 나타날 부분을 넣는 layout-->
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+<!--        접히거나 나타날 부분-->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+                <VideoView
+                    android:id="@+id/vv_video"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-    </view>
-<!--뒤로가기 버튼-->
+                <TextView
+                    android:id="@+id/tv_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/headline_b"
+                    android:hint="Title"
+                    android:padding="4dp"
+
+                    app:layout_constraintBottom_toTopOf="@+id/tv_subTitle"
+                    app:layout_constraintStart_toStartOf="@+id/tv_subTitle" />
+
+                <TextView
+                    android:id="@+id/tv_subTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/subtitle_b"
+                    android:hint="SubTitle"
+                    android:padding="4dp"
+                    app:layout_constraintBottom_toTopOf="@+id/btn_favrite"
+                    app:layout_constraintStart_toStartOf="@+id/btn_favrite" />
+                <!--Like 버튼-->
+                <Button
+                    android:id="@+id/btn_favrite"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:backgroundTint="@color/secondary"
+                    android:text="좋아요"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <!--유튜브로 넘어가기 버튼-->
+                <Button
+                    android:id="@+id/btn_youtube"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:backgroundTint="@color/secondary"
+                    android:text="유튜브"
+
+                    app:layout_constraintBottom_toBottomOf="@+id/btn_favrite"
+                    app:layout_constraintEnd_toStartOf="@+id/btn_danawa"
+                    app:layout_constraintStart_toEndOf="@+id/btn_favrite"
+                    app:layout_constraintTop_toTopOf="@+id/btn_favrite" />
+
+                <!--다나와로 넘어가기 버튼-->
+                <Button
+                    android:id="@+id/btn_danawa"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_marginEnd="10dp"
+                    android:backgroundTint="@color/secondary"
+                    android:text="다나와"
+                    app:layout_constraintBottom_toBottomOf="@+id/btn_youtube"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/btn_youtube" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+<!--        접혔을 때에도 남아있을 부분 layout-->
+            <TextView
+                android:id="@+id/tv_toolbarTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/headline_b"
+                android:hint="Title"
+                android:padding="4dp"
+                android:layout_gravity="center_horizontal"
+                app:layout_constraintBottom_toTopOf="@+id/tv_subTitle"
+                app:layout_constraintStart_toStartOf="@+id/tv_subTitle" />
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+        <androidx.viewpager2.widget.ViewPager2
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+        </androidx.viewpager2.widget.ViewPager2>
+
+    </com.google.android.material.appbar.AppBarLayout>
+    <!--뒤로가기 버튼-->
     <ImageView
         android:layout_width="50dp"
         android:layout_height="50dp"
@@ -27,11 +115,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-<!--Like 버튼-->
-<!--유튜브로 넘어가기 버튼-->
-<!--다나와로 넘어가기 버튼-->
 
-<!--영상 내용-->
-<!--관련 영상-->
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!--영상 내용-->
+    <!--관련 영상-->
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+
