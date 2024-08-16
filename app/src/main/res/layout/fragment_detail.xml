@@ -51,7 +51,7 @@
                 <Button
                     android:id="@+id/btn_favrite"
                     android:layout_width="wrap_content"
-                    android:layout_height="40dp"
+                    android:layout_height="50dp"
                     android:layout_marginStart="10dp"
                     android:layout_marginBottom="10dp"
                     android:backgroundTint="@color/secondary"
@@ -63,7 +63,7 @@
                 <Button
                     android:id="@+id/btn_youtube"
                     android:layout_width="wrap_content"
-                    android:layout_height="40dp"
+                    android:layout_height="50dp"
                     android:backgroundTint="@color/secondary"
                     android:text="유튜브"
 
@@ -76,7 +76,7 @@
                 <Button
                     android:id="@+id/btn_danawa"
                     android:layout_width="wrap_content"
-                    android:layout_height="40dp"
+                    android:layout_height="50dp"
                     android:layout_marginEnd="10dp"
                     android:backgroundTint="@color/secondary"
                     android:text="다나와"
