@@ -5,10 +5,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager2.adapter.FragmentStateAdapter
+import androidx.viewpager2.widget.ViewPager2
 import com.example.blackcows.R
 import com.example.blackcows.databinding.FragmentDetailBinding
+import com.google.android.material.tabs.TabLayoutMediator
 
 class DetailFragment : DialogFragment() {
 
@@ -19,6 +24,8 @@ class DetailFragment : DialogFragment() {
     private val binding get() = _binding!!
 
     private val detailViewModel by viewModels<DetailViewModel> { DetailViewModelFactory() }
+
+    private lateinit var viewPager: ViewPager2
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,28 +40,20 @@ class DetailFragment : DialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-//        val detailViewModel =
-//            ViewModelProvider(this).get(DetailViewModel::class.java)
-
         _binding = FragmentDetailBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-//        adapter = DetailPagerAdapter(this)
-//        binding.viewPager2.adapter = adapter
-//
-//        // TabLayout과 ViewPager2 연결
-//        TabLayoutMediator(binding.tlTabLayout, binding.viewPager2) { tab, position ->
-//            tab.text = when (position) {
-//                0 -> "상세내용"
-//                1 -> "관련 영상"
-//                else -> null
-//            }
-//        }.attach()
+        viewPager = binding.pager
+        viewPager.apply {
+            adapter = ScreenSlidePagerAdapter(requireActivity())
+            orientation = ViewPager2.ORIENTATION_HORIZONTAL
+        }
 
-//        val textView: TextView = binding.textNotifications
-//        detailViewModel.text.observe(viewLifecycleOwner) {
-//            textView.text = it
-//        }
+        // 뷰페이저와 탭레이아웃을 붙임
+        TabLayoutMediator(binding.tlTabLayout, viewPager) { tab, position ->
+            tab.text = arrayListOf("상세 정보", "관련 영상")[position]
+        }.attach()
+
         return root
     }
 
@@ -69,21 +68,14 @@ class DetailFragment : DialogFragment() {
         _binding = null
     }
 
-    inner class DetailPagerAdapter(idolList: ArrayList<Int>) : RecyclerView.Adapter<ViewPagerAdapter.PagerViewHolder>() {
-        var item = idolList
+    private inner class ScreenSlidePagerAdapter(fa: FragmentActivity) : FragmentStateAdapter(fa) {
+        override fun getItemCount(): Int = 2
 
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = PagerViewHolder((parent))
-
-        override fun getItemCount(): Int = item.size
-
-        override fun onBindViewHolder(holder: PagerViewHolder, position: Int) {
-            holder.idol.setImageResource(item[position])
-        }
-
-        inner class PagerViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder
-            (LayoutInflater.from(parent.context).inflate(R.layout.idol_list_item, parent, false)){
-
-            val idol = itemView.imageView_idol!!
+        override fun createFragment(position: Int): Fragment {
+            return when(position){
+                0 -> InfoFragment()
+                else -> CustomFragment()
+            }
         }
     }
 }

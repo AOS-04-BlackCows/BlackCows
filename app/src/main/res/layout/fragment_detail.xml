@@ -98,33 +98,30 @@
                     app:layout_constraintTop_toTopOf="@+id/btn_youtube" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-<!--        접혔을 때에도 남아있을 부분 layout-->
-            <androidx.appcompat.widget.Toolbar
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_collapseMode="pin">
-<!--            영상 타이틀-->
-                <TextView
-                    android:id="@+id/tv_toolbarTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/headline_b"
-                    android:hint="Title"
-                    android:padding="4dp"
-                    android:layout_gravity="end"
-                    app:layout_constraintBottom_toTopOf="@+id/tv_subTitle"
-                    app:layout_constraintStart_toStartOf="@+id/tv_subTitle" />
-                <!--뒤로가기 버튼-->
-                <ImageView
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_marginTop="32dp"
-                    android:layout_marginStart="16dp"
-                    android:src="@drawable/baseline_arrow_back_24"
-                    android:background="@drawable/shape_circlebutton"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </androidx.appcompat.widget.Toolbar>
+<!--&lt;!&ndash;        접혔을 때에도 남아있을 부분 layout&ndash;&gt;-->
+<!--            <androidx.appcompat.widget.Toolbar-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                app:layout_collapseMode="pin">-->
+<!--&lt;!&ndash;            영상 타이틀&ndash;&gt;-->
+<!--                <TextView-->
+<!--                    android:id="@+id/tv_toolbarTitle"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    style="@style/headline_b"-->
+<!--                    android:hint="Title"-->
+<!--                    android:padding="4dp"-->
+<!--                    android:layout_gravity="start" />-->
+<!--                &lt;!&ndash;뒤로가기 버튼&ndash;&gt;-->
+<!--                <ImageView-->
+<!--                    android:layout_width="40dp"-->
+<!--                    android:layout_height="40dp"-->
+<!--                    android:layout_gravity="end|center"-->
+<!--                    android:src="@drawable/baseline_arrow_back_24"-->
+<!--                    android:background="@drawable/shape_circlebutton"-->
+<!--                    app:layout_constraintEnd_toEndOf="parent"-->
+<!--                    app:layout_constraintTop_toTopOf="parent" />-->
+<!--            </androidx.appcompat.widget.Toolbar>-->
 
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
@@ -132,22 +129,24 @@
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tl_tabLayout"
             android:layout_width="match_parent"
-            android:layout_height="0dp">
+            android:layout_height="wrap_content">
 
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="상세 내용"/>
+                android:layout_height="wrap_content"/>
 
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="관련 영상"/>
+                android:layout_height="wrap_content"/>
 
         </com.google.android.material.tabs.TabLayout>
 
     </com.google.android.material.appbar.AppBarLayout>
-
+    <androidx.viewpager2.widget.ViewPager2
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/pager"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
     <!--영상 내용-->
     <!--관련 영상-->
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
