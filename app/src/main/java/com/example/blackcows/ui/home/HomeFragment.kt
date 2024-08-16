@@ -6,9 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
+import com.example.blackcows.R
 import com.example.blackcows.databinding.FragmentHomeBinding
+import com.example.blackcows.ui.detail.DetailFragment
 
 class HomeFragment : Fragment() {
 
@@ -40,7 +43,9 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        binding.textHome.setOnClickListener {
+            DetailFragment().show(requireActivity().supportFragmentManager,"Detail")
+        }
         homeViewModel.getVideoThumbanail()
     }
 
@@ -48,4 +53,5 @@ class HomeFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
+
 }

@@ -71,4 +71,7 @@ dependencies {
 
     // Coil
     implementation("io.coil-kt:coil:0.10.0")
+
+    // TabLayout 사용을 위한 의존성
+    implementation ("com.google.android.material:material:1.3.0")
 }
