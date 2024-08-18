@@ -5,11 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.blackcows.databinding.FragmentSearchBinding
 import com.example.blackcows.ui.adapter.PublicListAdapter
+
 
 class SearchFragment : Fragment() {
 
@@ -38,7 +41,7 @@ class SearchFragment : Fragment() {
     }
 
     private fun initView() = with(binding) {
-
+        searchRecyclerView.isNestedScrollingEnabled = false
         searchRecyclerView.layoutManager = GridLayoutManager(this@SearchFragment.context, 2)
         searchRecyclerView.adapter = searchAdapter
         searchAdapter.itemClick = object : PublicListAdapter.ItemClick {

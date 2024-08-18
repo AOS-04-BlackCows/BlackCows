@@ -11,7 +11,7 @@
         <item name="android:colorSecondary">@color/secondary</item>
         <item name="android:textColorHighlight">@color/highlightRed</item>
         <item name="android:textColorHighlightInverse">@color/highlightYellow</item>
-
     </style>
+
     <style name="Theme.BlackCows" parent="Base.Theme.BlackCows"/>
 </resources>

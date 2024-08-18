@@ -3,6 +3,8 @@
     <string name="title_home">Home</string>
     <string name="title_search">Search</string>
     <string name="title_mypage">MyPage</string>
+    <string name="search_hint">검색어를 입력해주세요.</string>
+    <string name="search_btn">검색</string>
 
     <!-- My Page Fragment -->
     <!-- My Page Fragment -->
