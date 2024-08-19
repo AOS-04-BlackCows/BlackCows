@@ -4,7 +4,8 @@ import com.example.blackcows.ui.search.SearchCategory
 
 
 data class SearchSubCategory(
-    val name : String
+    val name : String,
+    val category : String
 )
 
 object SearchCategoryDataSource {
@@ -12,102 +13,58 @@ object SearchCategoryDataSource {
         return when(searchCategoryType) {
             SearchCategory.HARD_WARE -> {
                 listOf(
-                    SearchSubCategory("CPU"),
-                    SearchSubCategory("메인보드"),
-                    SearchSubCategory("메모리"),
-                    SearchSubCategory("저장장치"),
-                    SearchSubCategory("그래픽카드"),
-                    SearchSubCategory("파워 서플라이"),
-                    SearchSubCategory("케이스"),
-                    SearchSubCategory("쿨러"),
-                    SearchSubCategory("네트워크 카드"),
-                    SearchSubCategory("사운드 카드"),
-                    SearchSubCategory("입출력 포트"),
-                    SearchSubCategory("외장 드라이브"),
-                    SearchSubCategory("모니터"),
-                    SearchSubCategory("키보드"),
-                    SearchSubCategory("마우스"),
-                    SearchSubCategory("프린터"),
-                    SearchSubCategory("스캐너"),
-                    SearchSubCategory("웹캠"),
-                    SearchSubCategory("게임패드"),
-                    SearchSubCategory("스피커")
+                    SearchSubCategory("CPU","112747"),
+                    SearchSubCategory("RAM","112752"),
+                    SearchSubCategory("메인보드","112751"),
+                    SearchSubCategory("그래픽카드(VGA)","112753"),
+                    SearchSubCategory("SSD","112760"),
+                    SearchSubCategory("HDD","112763"),
+                    SearchSubCategory("케이스","112775"),
+                    SearchSubCategory("파워","112777"),
+                    SearchSubCategory("키보드","112782"),
+                    SearchSubCategory("마우스","112787"),
+                    SearchSubCategory("ODD","112772")
                 )
             }
             SearchCategory.SOFT_WARE -> {
                 listOf(
-                    SearchSubCategory("운영체제"),
-                    SearchSubCategory("응용 프로그램"),
-                    SearchSubCategory("보안"),
-                    SearchSubCategory("개발 도구"),
-                    SearchSubCategory("데이터베이스 관리"),
-                    SearchSubCategory("웹 브라우저"),
-                    SearchSubCategory("그래픽 디자인"),
-                    SearchSubCategory("비디오 편집"),
-                    SearchSubCategory("음악 제작"),
-                    SearchSubCategory("게임"),
-                    SearchSubCategory("시스템 유틸리티")
+                    SearchSubCategory("운영체제","1136152"),
+                    SearchSubCategory("사무/문서","1136168"),
+                    SearchSubCategory("그래픽/CAD/웹","1136192"),
+                    SearchSubCategory("개발툴/유틸리티","1136236"),
+                    SearchSubCategory("영상/음향","1136237"),
+                    SearchSubCategory("백신/보안/백업","1136220")
                 )
             }
             SearchCategory.PERIHERAL_DEVICE -> {
                 listOf(
-                    SearchSubCategory("입력장치"),
-                    SearchSubCategory("출력장치"),
-                    SearchSubCategory("저장장치"),
-                    SearchSubCategory("네트워킹 장치"),
-                    SearchSubCategory("오디오 장치"),
-                    SearchSubCategory("비디오 장치"),
-                    SearchSubCategory("게임 장치"),
-                    SearchSubCategory("스캐너"),
-                    SearchSubCategory("웹캠"),
-                    SearchSubCategory("프린터"),
-                    SearchSubCategory("모니터"),
-                    SearchSubCategory("키보드"),
-                    SearchSubCategory("마우스"),
-                    SearchSubCategory("게임패드"),
-                    SearchSubCategory("스피커"),
-                    SearchSubCategory("헤드셋"),
-                    SearchSubCategory("마이크"),
-                    SearchSubCategory("외장 하드 드라이브"),
-                    SearchSubCategory("USB 허브")
+                    SearchSubCategory("쿨러/튜닝","112798"),
+                    SearchSubCategory("USB허브","11239702"),
+                    SearchSubCategory("케이블/젠더","112799"),
+                    SearchSubCategory("컨트롤러/동글","112797"),
+                    SearchSubCategory("공유기","112804"),
+                    SearchSubCategory("랜카드","11230206"),
+                    SearchSubCategory("스위치허브","11230207"),
+                    SearchSubCategory("네트워크 주변기기","1131668"),
+                    SearchSubCategory("영상/TV/PC캠","112810"),
+                    SearchSubCategory("웹캠","1131912"),
+                    SearchSubCategory("인터넷 방송 장비","11212809"),
+                    SearchSubCategory("PC헤드셋","11252451"),
+                    SearchSubCategory("PC스피커","1131892"),
+                    SearchSubCategory("사운드카드","11312814"),
+                    SearchSubCategory("PC마이크","11312813")
                 )
             }
             SearchCategory.GAMING_DEVICE -> {
                 listOf(
-                    SearchSubCategory("게이밍 마우스"),
-                    SearchSubCategory("게이밍 키보드"),
-                    SearchSubCategory("헤드셋"),
-                    SearchSubCategory("모니터"),
-                    SearchSubCategory("게이밍 의자"),
-                    SearchSubCategory("게임패드"),
-                    SearchSubCategory("마우스패드"),
-                    SearchSubCategory("스탠드"),
-                    SearchSubCategory("웹캠"),
-                    SearchSubCategory("서라운드 사운드 시스템"),
-                    SearchSubCategory("VR 헤드셋"),
-                    SearchSubCategory("조이스틱"),
-                    SearchSubCategory("외장 하드 드라이브"),
-                    SearchSubCategory("게임 콘솔"),
-                    SearchSubCategory("캡처 카드"),
-                    SearchSubCategory("게임 액세서리"),
-                    SearchSubCategory("냉각 패드"),
-                    SearchSubCategory("스피커"),
-                    SearchSubCategory("RGB 조명 장비")
+                    SearchSubCategory("플레이스테이션5/4","11238042"),
+                    SearchSubCategory("엑스박스 시리즈/원","11238044"),
+                    SearchSubCategory("닌텐도 스위치","11238041")
                 )
             }
         }
     }
 }
-
-// Depth1
-// 하드웨어, 소프트웨어, 주변기기, 게이밍용품
-//val depth1List = mapOf("하드웨어" to "hardwareList", "소프트웨어" to "softwareList", "주변기기" to "peripheralDeviceList", "게이밍용품" to "gamingDeviceList")
-//val depth2List = mapOf(
-//    "hardwareList" to listOf("CPU", "메인보드", "메모리", "저장장치", "그래픽카드", "파워 서플라이", "케이스", "쿨러", "네트워크 카드", "사운드 카드", "입출력 포트", "외장 드라이브", "모니터", "키보드", "마우스", "프린터", "스캐너", "웹캠", "게임패드", "스피커"),
-//    "softwareList" to listOf("운영체제", "응용 프로그램", "보안", "개발 도구", "데이터베이스 관리", "웹 브라우저", "그래픽 디자인", "비디오 편집", "음악 제작", "게임", "시스템 유틸리티"),
-//    "peripheralDeviceList" to listOf("입력장치", "출력장치", "저장장치", "네트워킹 장치", "오디오 장치", "비디오 장치", "게임 장치", "스캐너", "웹캠", "프린터", "모니터", "키보드", "마우스", "게임패드", "스피커", "헤드셋", "마이크", "외장 하드 드라이브", "USB 허브"),
-//    "gamingDeviceList" to listOf("게이밍 마우스", "게이밍 키보드", "헤드셋", "모니터", "게이밍 의자", "게임패드", "마우스패드", "스탠드", "웹캠", "서라운드 사운드 시스템", "VR 헤드셋", "조이스틱", "외장 하드 드라이브", "게임 콘솔", "캡처 카드", "게임 액세서리", "냉각 패드", "스피커", "RGB 조명 장비")
-//)
 
 
 

@@ -23,13 +23,13 @@ class SearchViewModel(private val repository: VideoRepository) : ViewModel() {
     private val _trendingVideos = MutableLiveData<List<ListItem.VideoItem>?>()
     val trendingVideos: LiveData<List<ListItem.VideoItem>?> = _trendingVideos
 
-    fun fetchTrendingVideos(region: String = "KR"){
+    fun getSearchVideos(query: String){
         viewModelScope.launch {
             runCatching {
-                val videos = repository.getTrendingVideos(region).items?.toVideoItem()
+                val videos = repository.getSearchVideos(query).items?.toVideoItem()
                 _trendingVideos.value = videos
             }.onFailure {
-                Log.e(TAG, "fetchTrendingVideos() failed! : ${it.message}")
+                Log.e(TAG, "getSearchVideos() failed! : ${it.message}")
                 handleException(it)
             }
         }
