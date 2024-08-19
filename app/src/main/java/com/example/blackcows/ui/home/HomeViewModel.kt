@@ -7,23 +7,29 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.CreationExtras
+import com.example.blackcows.ListItem
 import com.example.blackcows.data.repository.VideoRepository
 import com.example.blackcows.data.repository.YoutubeRepositoryImpl
 import com.example.blackcows.network.RetrofitClient
+import com.example.blackcows.toVideoItem
 import kotlinx.coroutines.launch
 
 class HomeViewModel (private val repository : VideoRepository) : ViewModel() {
 
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is home Fragment"
+    private val _categoryVideos = MutableLiveData<List<ListItem.VideoItem>>()
+    val categoryVideos : LiveData<List<ListItem.VideoItem>> = _categoryVideos
+
+    fun getCategoryVideos(categoryId : String){
+        viewModelScope.launch {
+            try {
+                val response = repository.getCategoryVideos(categoryId)
+                val videoItems = response.items!!.toVideoItem()  // 변환 함수 사용
+                _categoryVideos.value = videoItems
+            } catch (e: Exception) {
+                Log.e("HomeViewModel", "Error fetching category videos", e)
+            }
+        }
     }
-    val text: LiveData<String> = _text
-//    fun getVideoThumbanail(){
-//        viewModelScope.launch {
-//            Log.d("HomeViewModel_data",repository.getTrendingVideos("").toString())
-//            repository.getTrendingVideos("노트북")
-//        }
-//    }
 }
 
 class HomeViewModelFactory : ViewModelProvider.Factory {

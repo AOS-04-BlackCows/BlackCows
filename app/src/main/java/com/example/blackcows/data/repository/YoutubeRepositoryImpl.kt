@@ -8,7 +8,13 @@ class YoutubeRepositoryImpl(private val searchVideoRemoteDataSource: SearchVideo
     override suspend fun getTrendingVideos(region: String): VideoResponse {
         return searchVideoRemoteDataSource.getTrendingVideos()
     }
+    
     override suspend fun getSearchVideos(query: String): YouTubeSearchResponse {
         return searchVideoRemoteDataSource.getSearchVideos(query)
+    }
+
+    // home 카테고리 서치
+    override suspend fun getCategoryVideos(categoryId : String): VideoResponse {
+        return searchVideoRemoteDataSource.getTrendingVideos(query = categoryId)
     }
 }
