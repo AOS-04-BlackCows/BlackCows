@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 import com.example.blackcows.ListItem
 import com.example.blackcows.data.repository.FavoriteRepository
 
-class MypageViewModel() : ViewModel() {
+class MypageViewModel : ViewModel() {
 
     private val _likeItems = MutableLiveData<List<ListItem.VideoItem>>()
     val likeItems : LiveData<List<ListItem.VideoItem>> get() = _likeItems
