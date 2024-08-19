@@ -23,6 +23,7 @@ class HomeRecyclerViewAdapter : RecyclerView.Adapter<HomeRecyclerViewAdapter.Cat
         notifyDataSetChanged()
     }
 
+
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
