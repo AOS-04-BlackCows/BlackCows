@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.CreationExtras
+import com.example.blackcows.ListItem
 import com.example.blackcows.data.repository.VideoRepository
 import com.example.blackcows.data.repository.YoutubeRepositoryImpl
 import com.example.blackcows.network.RetrofitClient
@@ -14,11 +15,10 @@ import kotlinx.coroutines.launch
 
 class DetailViewModel(private val repository : VideoRepository) : ViewModel() {
 
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is Detail Fragment"
-    }
-    val text: LiveData<String> = _text
-    fun getVideoThumbanail(){
+    private val _trendingVideos = MutableLiveData<List<ListItem.VideoItem>?>()
+    val trendingVideos: LiveData<List<ListItem.VideoItem>?> = _trendingVideos
+
+    fun fetchTrendingVideos(region: String = "KR", category: String){
         viewModelScope.launch {
             Log.d("DetailViewModel_data",repository.getTrendingVideos("").toString())
             repository.getTrendingVideos("모니터")

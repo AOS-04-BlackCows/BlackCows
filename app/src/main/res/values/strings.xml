@@ -6,7 +6,9 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
-    <!-- My Page Fragment -->
+    <!-- Home Fragment -->
+    <String name="most_popular_videos">Most Popular Videos</String>
+
     <!-- My Page Fragment -->
     <!-- My Page Fragment -->
     <!-- My Page Fragment -->

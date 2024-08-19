@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.CreationExtras
+import com.example.blackcows.ListItem
 import com.example.blackcows.data.repository.VideoRepository
 import com.example.blackcows.data.repository.YoutubeRepositoryImpl
 import com.example.blackcows.network.RetrofitClient
@@ -14,10 +15,10 @@ import kotlinx.coroutines.launch
 
 class HomeViewModel (private val repository : VideoRepository) : ViewModel() {
 
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is home Fragment"
-    }
-    val text: LiveData<String> = _text
+    private val _mostPopularVideos = MutableLiveData<List<ListItem.VideoItem>>()
+
+    val mostPopularVideos : LiveData<List<ListItem.VideoItem>> = _mostPopularVideos
+
     fun getVideoThumbanail(){
         viewModelScope.launch {
             Log.d("HomeViewModel_data",repository.getTrendingVideos("").toString())

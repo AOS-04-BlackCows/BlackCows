@@ -15,12 +15,12 @@ import com.example.blackcows.R
 import com.example.blackcows.databinding.FragmentDetailBinding
 import com.google.android.material.tabs.TabLayoutMediator
 
+private const val VIDEOINFO = "videoInfo"
+
 class DetailFragment : DialogFragment() {
+    private var videoInfo: String? = null
 
     private var _binding: FragmentDetailBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
 
     private val detailViewModel by viewModels<DetailViewModel> { DetailViewModelFactory() }
@@ -60,7 +60,7 @@ class DetailFragment : DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        detailViewModel.getVideoThumbanail()
+//        detailViewModel.getVideoThumbanail()
     }
 
     override fun onDestroyView() {
@@ -68,6 +68,7 @@ class DetailFragment : DialogFragment() {
         _binding = null
     }
 
+//뷰페이져 어뎁터
     private inner class ScreenSlidePagerAdapter(fa: FragmentActivity) : FragmentStateAdapter(fa) {
         override fun getItemCount(): Int = 2
 
