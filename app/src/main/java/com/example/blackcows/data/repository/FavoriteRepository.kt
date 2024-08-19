@@ -13,8 +13,7 @@ class FavoriteRepository(context: Context) {
         context.getSharedPreferences(PREF_FAVORITES, Context.MODE_PRIVATE)
     private val gson = Gson()
     private val _favoriteItems = loadFavorites()
-    val favoriteItems: List<ListItem.VideoItem>
-        get() = _favoriteItems.toList()
+    val favoriteItems: List<ListItem.VideoItem> get() = _favoriteItems.toList()
 
     fun addFavoriteItem(video: ListItem.VideoItem) {
         if (!_favoriteItems.contains(video)) {
