@@ -5,12 +5,13 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 private const val API_MAX_RESULT = 20
-private const val API_REGION = "US"
-private const val API_KEY = "AIzaSyCf0LT94hMzBUrsNmHLADw_6GPW0Q39l2Y"//BuildConfig.YOUTUBE_API_KEY
+private const val API_REGION = "KR"
+internal const val API_KEY = "AIzaSyCf0LT94hMzBUrsNmHLADw_6GPW0Q39l2Y"//BuildConfig.YOUTUBE_API_KEY
 //화민 : AIzaSyCf0LT94hMzBUrsNmHLADw_6GPW0Q39l2Y
 //문기 : AIzaSyA26WhxZpd4IkYzUy784K98mPqPqHzMkiM
 //지민 : AIzaSyA6rDu-BRuKFCsdrjLIr_XjWHjjMb6Qq34
-//혜령 :
+//혜령 : AIzaSyCGmiXhF9ZFQrtFUslYwGDxWoitXL085Dw
+
 interface SearchVideoRemoteDataSource {
     @GET("videos")
     suspend fun getTrendingVideos(
@@ -21,4 +22,5 @@ interface SearchVideoRemoteDataSource {
         @Query("key") apiKey: String = API_KEY,
         @Query("q") query: String = "강아지"
     ): VideoResponse
+
 }
