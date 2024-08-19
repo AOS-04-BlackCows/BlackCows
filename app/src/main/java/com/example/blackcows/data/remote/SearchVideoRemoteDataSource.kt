@@ -1,5 +1,6 @@
 package com.example.blackcows.data.remote
 
+import com.example.blackcows.data.model.YouTubeSearchResponse
 import com.example.blackcows.data.model.VideoResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -29,5 +30,5 @@ interface SearchVideoRemoteDataSource {
         @Query("maxResults") maxResults: Int = API_MAX_RESULT,
         @Query("regionCode") regionCode: String = "KR",
         @Query("key") apiKey: String = API_KEY
-    ): VideoResponse
+    ): YouTubeSearchResponse
 }

@@ -11,7 +11,7 @@ import com.example.blackcows.ListItem
 import com.example.blackcows.data.repository.VideoRepository
 import com.example.blackcows.data.repository.YoutubeRepositoryImpl
 import com.example.blackcows.network.RetrofitClient
-import com.example.blackcows.toVideoItem
+import com.example.blackcows.toSearchVideoItem
 import kotlinx.coroutines.launch
 import okio.IOException
 import retrofit2.HttpException
@@ -26,12 +26,15 @@ class SearchViewModel(private val repository: VideoRepository) : ViewModel() {
     fun getSearchVideos(query: String){
         viewModelScope.launch {
             runCatching {
-                val videos = repository.getSearchVideos(query).items?.toVideoItem()
+                val items = repository.getSearchVideos(query).items
+                val snippets = items?.mapNotNull { it.snippet }
+                val videos = snippets?.toSearchVideoItem()
                 _trendingVideos.value = videos
             }.onFailure {
                 Log.e(TAG, "getSearchVideos() failed! : ${it.message}")
                 handleException(it)
             }
+            Log.d("repository.getSearchVideos(query)", "repository.getSearchVideos(query) = ${repository.getSearchVideos(query)}")
         }
     }
 

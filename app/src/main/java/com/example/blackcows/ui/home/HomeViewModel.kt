@@ -18,12 +18,12 @@ class HomeViewModel (private val repository : VideoRepository) : ViewModel() {
         value = "This is home Fragment"
     }
     val text: LiveData<String> = _text
-    fun getVideoThumbanail(){
-        viewModelScope.launch {
-            Log.d("HomeViewModel_data",repository.getTrendingVideos("").toString())
-            repository.getTrendingVideos("노트북")
-        }
-    }
+//    fun getVideoThumbanail(){
+//        viewModelScope.launch {
+//            Log.d("HomeViewModel_data",repository.getTrendingVideos("").toString())
+//            repository.getTrendingVideos("노트북")
+//        }
+//    }
 }
 
 class HomeViewModelFactory : ViewModelProvider.Factory {

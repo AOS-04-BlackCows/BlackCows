@@ -38,7 +38,9 @@ class PublicListAdapter : ListAdapter<ListItem.VideoItem, PublicListAdapter.Sear
             .into(holder.listThumbnail)
         holder.listTitle.text = getItem(position).title
         holder.listWriter.text = getItem(position).channelTitle
-
+        holder.itemView.setOnClickListener {
+            itemClick?.onClick(it, position)
+        }
     }
 
     inner class SearchViewHolder(view: View) : RecyclerView.ViewHolder(view) {
