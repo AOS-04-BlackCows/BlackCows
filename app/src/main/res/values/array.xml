@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="category_array">
+        <item>HARDWARE</item>
+        <item>SOFTWARE</item>
+        <item>PERIHERALDEVICE</item>
+        <item>GAMINGDEVICE</item>
+    </string-array>
+</resources>
