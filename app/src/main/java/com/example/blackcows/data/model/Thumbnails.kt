@@ -4,58 +4,22 @@ import com.google.gson.annotations.SerializedName
 
 data class Thumbnails(
     @SerializedName("default")
-    val default: Default?,
+    val default: ThumbnailDetails?,
     @SerializedName("high")
-    val high: High?,
+    val high: ThumbnailDetails?,
     @SerializedName("maxres")
-    val maxres: Maxres?,
+    val maxres: ThumbnailDetails?,
     @SerializedName("medium")
-    val medium: Medium?,
+    val medium: ThumbnailDetails?,
     @SerializedName("standard")
-    val standard: Standard?
+    val standard: ThumbnailDetails?
 )
 
-data class Default(
-    @SerializedName("height")
-    val height: Int?,
+data class ThumbnailDetails(
     @SerializedName("url")
     val url: String?,
     @SerializedName("width")
-    val width: Int?
-)
-
-data class High(
+    val width: Int?,
     @SerializedName("height")
-    val height: Int?,
-    @SerializedName("url")
-    val url: String?,
-    @SerializedName("width")
-    val width: Int?
-)
-
-data class Maxres(
-    @SerializedName("height")
-    val height: Int?,
-    @SerializedName("url")
-    val url: String?,
-    @SerializedName("width")
-    val width: Int?
-)
-
-data class Medium(
-    @SerializedName("height")
-    val height: Int?,
-    @SerializedName("url")
-    val url: String?,
-    @SerializedName("width")
-    val width: Int?
-)
-
-data class Standard(
-    @SerializedName("height")
-    val height: Int?,
-    @SerializedName("url")
-    val url: String?,
-    @SerializedName("width")
-    val width: Int?
+    val height: Int?
 )
