@@ -74,4 +74,7 @@ dependencies {
 
     // TabLayout 사용을 위한 의존성
     implementation ("com.google.android.material:material:1.3.0")
+
+    //YouTubePlayerView
+    implementation ("com.pierfrancescosoffritti.androidyoutubeplayer:core:12.1.0")
 }

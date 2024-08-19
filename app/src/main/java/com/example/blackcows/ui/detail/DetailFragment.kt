@@ -7,23 +7,28 @@ import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.example.blackcows.R
 import com.example.blackcows.databinding.FragmentDetailBinding
+import com.example.blackcows.ui.search.SearchViewModel
+import com.example.blackcows.ui.search.SearchViewModelFactory
 import com.google.android.material.tabs.TabLayoutMediator
-
-private const val VIDEOINFO = "videoInfo"
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 
 class DetailFragment : DialogFragment() {
-    private var videoInfo: String? = null
 
     private var _binding: FragmentDetailBinding? = null
     private val binding get() = _binding!!
 
     private val detailViewModel by viewModels<DetailViewModel> { DetailViewModelFactory() }
+    private val searchViewModel by activityViewModels<SearchViewModel> {
+        SearchViewModelFactory()
+    }
 
     private lateinit var viewPager: ViewPager2
 
@@ -59,8 +64,23 @@ class DetailFragment : DialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        initView()
 //        detailViewModel.getVideoThumbanail()
+    }
+
+    private fun initView() {
+        binding.tvToolbarTitle.text = searchViewModel.trendingVideos.value?.get(searchViewModel.postion)?.title
+        binding.tvSubTitle.text = searchViewModel.trendingVideos.value?.get(searchViewModel.postion)?.channelTitle
+        lifecycle.addObserver(binding.vvVideo)
+        binding.vvVideo.addYouTubePlayerListener(object : AbstractYouTubePlayerListener(){
+            override fun onReady(youTubePlayer: YouTubePlayer) {
+                super.onReady(youTubePlayer)
+                val videoId = "1M4effiTpFQ"
+
+                youTubePlayer.loadVideo(videoId, 0f)
+            }
+        })
+
     }
 
     override fun onDestroyView() {
@@ -68,7 +88,6 @@ class DetailFragment : DialogFragment() {
         _binding = null
     }
 
-//뷰페이져 어뎁터
     private inner class ScreenSlidePagerAdapter(fa: FragmentActivity) : FragmentStateAdapter(fa) {
         override fun getItemCount(): Int = 2
 
