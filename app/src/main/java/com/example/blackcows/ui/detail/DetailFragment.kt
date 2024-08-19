@@ -69,8 +69,8 @@ class DetailFragment : DialogFragment() {
     }
 
     private fun initView() {
-        binding.tvToolbarTitle.text = searchViewModel.trendingVideos.value?.get(searchViewModel.postion)?.title
-        binding.tvSubTitle.text = searchViewModel.trendingVideos.value?.get(searchViewModel.postion)?.channelTitle
+        binding.tvToolbarTitle.text = searchViewModel.trendingVideos.value?.get(searchViewModel.position)?.title
+        binding.tvSubTitle.text = searchViewModel.trendingVideos.value?.get(searchViewModel.position)?.channelTitle
         lifecycle.addObserver(binding.vvVideo)
         binding.vvVideo.addYouTubePlayerListener(object : AbstractYouTubePlayerListener(){
             override fun onReady(youTubePlayer: YouTubePlayer) {

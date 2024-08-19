@@ -13,7 +13,6 @@ import com.example.blackcows.network.RetrofitClient
 import com.example.blackcows.toSearchVideoItem
 import kotlinx.coroutines.launch
 import com.example.blackcows.ListItem
-import com.example.blackcows.toVideoItem
 import okio.IOException
 import retrofit2.HttpException
 
@@ -21,12 +20,16 @@ private const val TAG = "SearchViewModel"
 
 class SearchViewModel(private val repository: VideoRepository) : ViewModel() {
 
+    var position: Int = 0
+
     private val _trendingVideos = MutableLiveData<List<ListItem.VideoItem>?>()
     val trendingVideos: LiveData<List<ListItem.VideoItem>?> = _trendingVideos
 
     fun getSearchVideos(query: String){
         viewModelScope.launch {
             runCatching {
+
+                // TODO 아래 코드 설명듣기
                 val items = repository.getSearchVideos(query).items
                 val snippets = items?.mapNotNull { it.snippet }
                 val videos = snippets?.toSearchVideoItem()

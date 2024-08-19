@@ -42,7 +42,7 @@ class InfoFragment : Fragment() {
 //        detailViewModel.getVideoThumbanail()
     }
     private fun initView() {
-        binding.tvDescription.text = searchViewModel.trendingVideos.value?.get(searchViewModel.postion)?.description
+        binding.tvDescription.text = searchViewModel.trendingVideos.value?.get(searchViewModel.position)?.description
     }
 
     override fun onDestroyView() {
