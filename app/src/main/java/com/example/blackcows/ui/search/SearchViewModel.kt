@@ -20,6 +20,8 @@ private const val TAG = "SearchViewModel"
 
 class SearchViewModel(private val repository: VideoRepository) : ViewModel() {
 
+    var position: Int = 0
+
     private val _trendingVideos = MutableLiveData<List<ListItem.VideoItem>?>()
     val trendingVideos: LiveData<List<ListItem.VideoItem>?> = _trendingVideos
 
