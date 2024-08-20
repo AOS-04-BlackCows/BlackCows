@@ -31,8 +31,8 @@ class SearchFragment : Fragment() {
     private var _binding: FragmentSearchBinding? = null
     private val binding get() = _binding!!
     private val searchAdapter by lazy { PublicListAdapter() }
-
-    private val searchViewModel by viewModels<SearchViewModel> {
+    private var searchKeyword: String = ""
+        private val searchViewModel by viewModels<SearchViewModel> {
         SearchViewModelFactory()
 
     }
@@ -104,7 +104,11 @@ class SearchFragment : Fragment() {
             searchAdapter.submitList(it)
         }
         binding.searchBtn.setOnClickListener {
-            getSearchVideos(binding.searchEt.text.toString())
+            searchKeyword = binding.searchEt.text.toString()
+            getSearchVideos(searchKeyword)
+        }
+        binding.searchMore.setOnClickListener {
+            addNextPage(searchKeyword, nextPageToken)
         }
     }
     private fun clearSearchEt () {
