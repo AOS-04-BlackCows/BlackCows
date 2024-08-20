@@ -12,7 +12,6 @@ class YoutubeRepositoryImpl(private val searchVideoRemoteDataSource: SearchVideo
     override suspend fun getSearchVideos(query: String): YouTubeSearchResponse {
         return searchVideoRemoteDataSource.getSearchVideos(query)
     }
-
     override suspend fun getCategoryVideos(category: String): VideoResponse {
         TODO("Not yet implemented")
     }

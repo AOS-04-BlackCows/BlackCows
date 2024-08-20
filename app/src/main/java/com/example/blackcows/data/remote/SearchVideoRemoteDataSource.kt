@@ -21,7 +21,8 @@ interface SearchVideoRemoteDataSource {
         @Query("chart") chart: String = "mostPopular",
         @Query("maxResults") maxResults: Int = API_MAX_RESULT,
         @Query("regionCode") regionCode: String = API_REGION,
-        @Query("key") apiKey: String = API_KEY
+        @Query("key") apiKey: String = API_KEY,
+        @Query("q") query: String = ""
     ): VideoResponse
 
     @GET("search")

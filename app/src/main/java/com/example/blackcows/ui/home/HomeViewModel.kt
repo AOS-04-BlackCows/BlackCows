@@ -22,8 +22,6 @@ class HomeViewModel (private val repository : VideoRepository) : ViewModel() {
         viewModelScope.launch {
             try {
                 val response = repository.getCategoryVideos(categoryId)
-                //val videoItems = response.items!!.toVideoItem()  // 변환 함수 사용
-                //_categoryVideos.value = videoItems
             } catch (e: Exception) {
                 Log.e("HomeViewModel", "Error fetching category videos", e)
             }
