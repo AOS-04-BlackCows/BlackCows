@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.blackcows.R
 import com.example.blackcows.data.model.SearchCategoryDataSource
@@ -57,6 +58,13 @@ class SearchFragment : Fragment() {
             override fun onClick(view: View, position: Int) {
                 val clickItem = searchViewModel.trendingVideos.value!!.get(position)
                 Toast.makeText(this@SearchFragment.context, "클릭이 되어버렸다", Toast.LENGTH_SHORT).show()
+
+                findNavController().navigate(R.id.action_fragment_to_detailFragment)
+//                val detail = DetailFragment()
+//                requireActivity().supportFragmentManager.beginTransaction()
+//                    .replace(R.id.nav_host_fragment_activity_main,detail)
+//                    .addToBackStack(null)
+//                    .commit()
             }
         }
         // 카테고리 클릭 시 변경
