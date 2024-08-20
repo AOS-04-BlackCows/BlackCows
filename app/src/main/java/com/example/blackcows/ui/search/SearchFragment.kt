@@ -32,6 +32,7 @@ class SearchFragment : Fragment() {
     private var _binding: FragmentSearchBinding? = null
     private val binding get() = _binding!!
     private val searchAdapter by lazy { PublicListAdapter() }
+    private var searchKeyword: String = ""
 
     private val searchViewModel by activityViewModels<SearchViewModel> {
         SearchViewModelFactory()
