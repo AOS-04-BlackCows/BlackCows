@@ -1,24 +1,33 @@
 package com.example.blackcows.ui.mypage
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.GridLayoutManager
+import com.example.blackcows.MypageDialog
 import com.example.blackcows.databinding.FragmentMypageBinding
+import com.example.blackcows.ui.adapter.PublicListAdapter
 
 class MypageFragment : Fragment() {
 
-    private var _binding: FragmentMypageBinding? = null
+    //context, viewModel
+    private lateinit var mContext : Context
+    private val mypageViewModel : MypageViewModel by viewModels()
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
+    //binding
+    private var _binding: FragmentMypageBinding? = null
     private val binding get() = _binding!!
 
-    private val mypageViewModel by viewModels<MypageViewModel> {
-        MypageViewModelFactory()
+    //Adapter
+    private val mypageAdapter by lazy { PublicListAdapter() }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        mContext = context
     }
 
     override fun onCreateView(
@@ -26,20 +35,55 @@ class MypageFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-//        val mypageViewModel =
-//            ViewModelProvider(this).get(MypageViewModel::class.java)
 
         _binding = FragmentMypageBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        binding.ivMypageProfile.clipToOutline =true
+        binding.apply {
+
+            //name textview 클릭 시 dialog 호출
+            tvMypageName.setOnClickListener {
+                val dialog = MypageDialog(requireContext())
+                dialog.setOnClickedListener(object : MypageDialog.ButtonClickListener {
+                    override fun onClicked(content: String) {
+                        binding.tvMypageName.text = content
+                    }
+                })
+                dialog.show("name","이름","이름 편집")
+            }
+
+            //introduction textview 클릭 시 dialog 호출
+            tvMypageIntroduction.setOnClickListener {
+                val dialog = MypageDialog(requireContext())
+                dialog.setOnClickedListener(object : MypageDialog.ButtonClickListener {
+                    override fun onClicked(content: String) {
+                        binding.tvMypageIntroduction.text = content
+                    }
+                })
+                dialog.show("introduction","인삿말","인삿말 편집")
+            }
+        }
+
+        //ViewModel 좋아요 한 items 가져옴
+        mypageViewModel.getlikeItems(mContext)
+
+        //데이터 수정 여부에 따라 업데이트 되도록 notify 이용
+        mypageViewModel.likeItems.observe(viewLifecycleOwner){like ->
+            mypageAdapter.items = like.toMutableList()
+            mypageAdapter.notifyDataSetChanged()
+        }
         return root
+    }
 
-//        val textView: TextView = binding.textNotifications
-//        mypageViewModel.text.observe(viewLifecycleOwner) {
-//            textView.text = it
-//        }
-
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        //recyclerView 설정, gridLayout 형식
+        //profile Image 모서리를 둥글게 하기 위해 clipToOutline 작성
+        binding.apply {
+            mypageRecyclerView.layoutManager = GridLayoutManager(this@MypageFragment.context,2)
+            mypageRecyclerView.adapter = mypageAdapter
+            ivMypageProfile.clipToOutline = true
+        }
     }
 
     override fun onDestroyView() {
