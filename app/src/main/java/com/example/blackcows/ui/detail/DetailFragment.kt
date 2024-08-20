@@ -7,14 +7,18 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
+import com.example.blackcows.ListItem
 import com.example.blackcows.R
+import com.example.blackcows.data.repository.FavoriteRepository
 import com.example.blackcows.databinding.FragmentDetailBinding
 import com.example.blackcows.ui.search.SearchViewModel
 import com.example.blackcows.ui.search.SearchViewModelFactory
@@ -101,7 +105,20 @@ class DetailFragment : DialogFragment() {
             }
         })
 
-        binding.btnFavrite
+        val channelTitle : String = binding.tvSubTitle.text.toString()
+        val title : String = binding.tvToolbarTitle.text.toString()
+        val thumbnails : String = binding.vvVideo.toString()
+
+        val video = ListItem.VideoItem(channelTitle,title,thumbnails,"")
+
+        binding.btnFavrite.setOnClickListener {
+
+            val favoriteRepository = FavoriteRepository(requireContext())
+            favoriteRepository.addFavoriteItem(video)
+
+            Toast.makeText(this@DetailFragment.context,"좋아요를 누르셨습니다",Toast.LENGTH_SHORT).show()
+        }
+
         binding.btnYoutube.setOnClickListener {
             //https://www.youtube.com/watch?v="id"
             val youtubeUri = Uri.parse("https://www.youtube.com/watch?v=${videoId}")
