@@ -23,6 +23,7 @@ class SearchViewModel(private val repository: VideoRepository) : ViewModel() {
 
     var position: Int = 0
     var nextPageToken: String = ""
+
     private val _trendingVideos = MutableLiveData<List<ListItem.VideoItem>?>()
     val trendingVideos: LiveData<List<ListItem.VideoItem>?> = _trendingVideos
 

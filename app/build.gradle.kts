@@ -77,4 +77,7 @@ dependencies {
 
     //YouTubePlayerView
     implementation ("com.pierfrancescosoffritti.androidyoutubeplayer:core:12.1.0")
+
+    //viewpager2
+    implementation (libs.androidx.viewpager2)
 }
