@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.blackcows.ListItem
 import com.example.blackcows.R
 import com.example.blackcows.data.model.SearchCategoryDataSource
+import com.example.blackcows.data.model.SearchSubCategory
 import com.example.blackcows.databinding.FragmentSearchBinding
 import com.example.blackcows.ui.adapter.PublicListAdapter
 import com.example.blackcows.ui.detail.DetailFragment
@@ -31,10 +32,9 @@ class SearchFragment : Fragment() {
     private var _binding: FragmentSearchBinding? = null
     private val binding get() = _binding!!
     private val searchAdapter by lazy { PublicListAdapter() }
-    private var searchKeyword: String = ""
-        private val searchViewModel by viewModels<SearchViewModel> {
-        SearchViewModelFactory()
 
+    private val searchViewModel by activityViewModels<SearchViewModel> {
+        SearchViewModelFactory()
     }
 
     override fun onCreateView(
@@ -60,9 +60,7 @@ class SearchFragment : Fragment() {
         searchRecyclerView.adapter = searchAdapter
         searchAdapter.itemClick = object : PublicListAdapter.ItemClick {
             override fun onClick(view: View, position: Int) {
-                val clickItem = searchViewModel.trendingVideos.value!!.get(position)
-                Toast.makeText(this@SearchFragment.context, "클릭이 되어버렸다", Toast.LENGTH_SHORT).show()
-
+                searchViewModel.position = position
                 findNavController().navigate(R.id.action_fragment_to_detailFragment)
             }
         }
@@ -104,8 +102,8 @@ class SearchFragment : Fragment() {
             searchAdapter.submitList(it)
         }
         binding.searchBtn.setOnClickListener {
-            searchKeyword = binding.searchEt.text.toString()
-            getSearchVideos(searchKeyword)
+            searchViewModel.danawaCategory = SearchSubCategory(binding.searchEt.text.toString(), "0")
+            getSearchVideos(binding.searchEt.text.toString())
         }
         binding.searchMore.setOnClickListener {
             addNextPage(searchKeyword, nextPageToken)
@@ -130,6 +128,7 @@ class SearchFragment : Fragment() {
             chipGroup.addView(Chip(this.context).apply {
                 text = i.name // text 세팅
                 this.setOnClickListener {
+                    searchViewModel.danawaCategory = i
                     binding.searchEt.setText(i.name)
                     chipGroup.removeAllViews()
                     binding.searchCategory.visibility = View.GONE

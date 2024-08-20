@@ -13,6 +13,7 @@ import com.example.blackcows.network.RetrofitClient
 import com.example.blackcows.toSearchVideoItem
 import kotlinx.coroutines.launch
 import com.example.blackcows.ListItem
+import com.example.blackcows.data.model.SearchSubCategory
 import okio.IOException
 import retrofit2.HttpException
 import java.util.Collections.addAll
@@ -22,6 +23,8 @@ private const val TAG = "SearchViewModel"
 class SearchViewModel(private val repository: VideoRepository) : ViewModel() {
 
     var position: Int = 0
+    lateinit var danawaCategory : SearchSubCategory
+
     var nextPageToken: String = ""
     private val _trendingVideos = MutableLiveData<List<ListItem.VideoItem>?>()
     val trendingVideos: LiveData<List<ListItem.VideoItem>?> = _trendingVideos
