@@ -109,7 +109,7 @@ class DetailFragment : DialogFragment() {
         val title : String = binding.tvToolbarTitle.text.toString()
         val thumbnails : String = binding.vvVideo.toString()
 
-        val video = ListItem.VideoItem(channelTitle,title,thumbnails,"")
+        val video = ListItem.VideoItem(channelTitle,title,thumbnails,"", "")
 
         binding.btnFavrite.setOnClickListener {
 
