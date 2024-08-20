@@ -32,19 +32,13 @@ class DetailFragment : DialogFragment() {
     private var _binding: FragmentDetailBinding? = null
     private val binding get() = _binding!!
 
-    private val detailViewModel by viewModels<DetailViewModel> { DetailViewModelFactory() }
-    private val searchViewModel by activityViewModels<SearchViewModel> {
-        SearchViewModelFactory()
-    }
+    private val detailViewModel by activityViewModels<DetailViewModel> { DetailViewModelFactory() }
 
+    private val videoData = detailViewModel.detailVideos.value?.get(detailViewModel.position)
     private lateinit var viewPager: ViewPager2
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        setStyle(STYLE_NO_TITLE, R.style.dialog_fullscreen)
-        //false로 설정해 주면 화면밖 혹은 뒤로가기 버튼시 다이얼로그라 dismiss 되지 않는다.
-        isCancelable = true
     }
 
     override fun onCreateView(
@@ -76,47 +70,43 @@ class DetailFragment : DialogFragment() {
     }
 
     private fun initView() {
-        binding.tvToolbarTitle.text =
-            searchViewModel.trendingVideos.value?.get(searchViewModel.position)?.title
-        binding.tvSubTitle.text =
-            searchViewModel.trendingVideos.value?.get(searchViewModel.position)?.channelTitle
+        binding.tvToolbarTitle.text = videoData?.title
+        binding.tvSubTitle.text = videoData?.channelTitle
         lifecycle.addObserver(binding.vvVideo)
-        val videoId = searchViewModel.trendingVideos.value?.get(searchViewModel.position)?.videoId
-            ?: "3YSuUuNCocY"
-        val danawaCode = if (searchViewModel.danawaCategory.category == "0") {
-            "https://search.danawa.com/dsearch.php?query=" + searchViewModel.danawaCategory.name
+        val videoId = videoData?.videoId ?: "3YSuUuNCocY"
+        val danawaCode = if (detailViewModel.danawaCategory.category == "0") {
+            "https://search.danawa.com/dsearch.php?query=" + detailViewModel.danawaCategory.name
         } else {
-            "https://prod.danawa.com/list/?cate=" + searchViewModel.danawaCategory.category
+            "https://prod.danawa.com/list/?cate=" + detailViewModel.danawaCategory.category
         }
 
         binding.vvVideo.addYouTubePlayerListener(object : AbstractYouTubePlayerListener() {
             override fun onReady(youTubePlayer: YouTubePlayer) {
                 super.onReady(youTubePlayer)
 
-
                 Log.d(
                     "영상아이디 내놔!!!",
-                    "videoId:${videoId} and ${
-                        searchViewModel.trendingVideos.value?.get(searchViewModel.position)
-                            .toString()
-                    }"
+                    "videoId:${videoId} and ${videoData.toString()}"
                 )
                 youTubePlayer.loadVideo(videoId, 0f)
             }
         })
 
-        val channelTitle : String = binding.tvSubTitle.text.toString()
-        val title : String = binding.tvToolbarTitle.text.toString()
-        val thumbnails : String = binding.vvVideo.toString()
 
-        val video = ListItem.VideoItem(channelTitle,title,thumbnails,"")
+        val video = ListItem.VideoItem(
+            videoData?.channelTitle ?: "체널명 없음",
+            videoData?.title ?: "영상 제목 없음",
+            videoData?.thumbnail?: "썸네일 없음",
+            videoData?.description?: "영상설명 없음",
+            videoData?.videoId?: "영상 없음"
+        )
 
         binding.btnFavrite.setOnClickListener {
 
             val favoriteRepository = FavoriteRepository(requireContext())
             favoriteRepository.addFavoriteItem(video)
 
-            Toast.makeText(this@DetailFragment.context,"좋아요를 누르셨습니다",Toast.LENGTH_SHORT).show()
+            Toast.makeText(this@DetailFragment.context, "좋아요를 누르셨습니다", Toast.LENGTH_SHORT).show()
         }
 
         binding.btnYoutube.setOnClickListener {
