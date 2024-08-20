@@ -15,33 +15,53 @@ import kotlinx.coroutines.launch
 import com.example.blackcows.ListItem
 import okio.IOException
 import retrofit2.HttpException
+import java.util.Collections.addAll
 
 private const val TAG = "SearchViewModel"
 
 class SearchViewModel(private val repository: VideoRepository) : ViewModel() {
 
     var position: Int = 0
-
+    var nextPageToken: String = ""
     private val _trendingVideos = MutableLiveData<List<ListItem.VideoItem>?>()
     val trendingVideos: LiveData<List<ListItem.VideoItem>?> = _trendingVideos
 
-    fun getSearchVideos(query: String){
+    fun getSearchVideos(query: String, pageToken: String? = null){
         viewModelScope.launch {
             runCatching {
-
-                // TODO 아래 코드 설명듣기
-                val items = repository.getSearchVideos(query).items
-                val snippets = items?.mapNotNull { it.snippet }
-                val videos = snippets?.toSearchVideoItem()
+                val response = repository.getSearchVideos(query, pageToken)
+                val items = response.items
+                val videos = items?.toSearchVideoItem()
                 _trendingVideos.value = videos
+
+                nextPageToken = response.nextPageToken?: ""
             }.onFailure {
                 Log.e(TAG, "getSearchVideos() failed! : ${it.message}")
                 handleException(it)
             }
-            Log.d("repository.getSearchVideos(query)", "repository.getSearchVideos(query) = ${repository.getSearchVideos(query)}")
+//            Log.d("repository.getSearchVideos(query)", "repository.getSearchVideos(query) = ${repository.getSearchVideos(query)}")
         }
     }
 
+    fun addNextPage (query: String, pageToken: String?) {
+        viewModelScope.launch {
+            runCatching {
+                val response = repository.getSearchVideos(query, pageToken)
+                val items = response.items
+                val videos = items?.toSearchVideoItem()
+                _trendingVideos.value = _trendingVideos.value!!.toMutableList().apply {
+                    if (videos != null) {
+                        addAll(videos)
+                    }
+                }
+
+                nextPageToken = response.nextPageToken?: ""
+            }.onFailure {
+                Log.e(TAG, "getSearchVideos() failed! : ${it.message}")
+                handleException(it)
+            }
+        }
+    }
     private fun handleException(e: Throwable) {
         when (e) {
             is HttpException -> {
@@ -53,14 +73,6 @@ class SearchViewModel(private val repository: VideoRepository) : ViewModel() {
             else -> Log.e(TAG, "Unexpected error: $e")
         }
     }
-
-    // TODO 1. 검색 결과 출력 테스트를 먼저 진행
-    // TODO 1-1. 리싸이클러뷰 xml에 추가
-    // TODO 1-2. 리싸이클러뷰 아이템 만들기
-    // TODO 1-3. 리싸이클러뷰에 검색어를 출력하는걸 만들기
-
-    // TODO 2. 검색어를 입력하는 칸 제작
-    // TODO 3. 검색어를 빠르게 입력해주는 UI 제작
 }
 
 

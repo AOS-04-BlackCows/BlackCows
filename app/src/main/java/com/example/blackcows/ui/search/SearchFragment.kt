@@ -14,7 +14,9 @@ import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import com.example.blackcows.ListItem
 import com.example.blackcows.R
 import com.example.blackcows.data.model.SearchCategoryDataSource
 import com.example.blackcows.databinding.FragmentSearchBinding
@@ -29,9 +31,10 @@ class SearchFragment : Fragment() {
     private var _binding: FragmentSearchBinding? = null
     private val binding get() = _binding!!
     private val searchAdapter by lazy { PublicListAdapter() }
-
-    private val searchViewModel by activityViewModels<SearchViewModel> {
+    private var searchKeyword: String = ""
+        private val searchViewModel by viewModels<SearchViewModel> {
         SearchViewModelFactory()
+
     }
 
     override fun onCreateView(
@@ -58,9 +61,9 @@ class SearchFragment : Fragment() {
         searchAdapter.itemClick = object : PublicListAdapter.ItemClick {
             override fun onClick(view: View, position: Int) {
                 val clickItem = searchViewModel.trendingVideos.value!!.get(position)
-                searchViewModel.position = position
-                DetailFragment().show(requireActivity().supportFragmentManager, "태그태그")
-//                Toast.makeText(this@SearchFragment.context, "클릭이 되어버렸다", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@SearchFragment.context, "클릭이 되어버렸다", Toast.LENGTH_SHORT).show()
+
+                findNavController().navigate(R.id.action_fragment_to_detailFragment)
             }
         }
         // 카테고리 클릭 시 변경
@@ -101,7 +104,11 @@ class SearchFragment : Fragment() {
             searchAdapter.submitList(it)
         }
         binding.searchBtn.setOnClickListener {
-            getSearchVideos(binding.searchEt.text.toString())
+            searchKeyword = binding.searchEt.text.toString()
+            getSearchVideos(searchKeyword)
+        }
+        binding.searchMore.setOnClickListener {
+            addNextPage(searchKeyword, nextPageToken)
         }
     }
     private fun clearSearchEt () {

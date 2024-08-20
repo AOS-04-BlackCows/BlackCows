@@ -1,39 +1,20 @@
 package com.example.blackcows.ui.mypage
 
-import android.util.Log
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.CreationExtras
-import com.example.blackcows.data.repository.VideoRepository
-import com.example.blackcows.data.repository.YoutubeRepositoryImpl
-import com.example.blackcows.network.RetrofitClient
-import kotlinx.coroutines.launch
+import com.example.blackcows.ListItem
+import com.example.blackcows.data.repository.FavoriteRepository
 
-class MypageViewModel(private val repository : VideoRepository) : ViewModel() {
+class MypageViewModel : ViewModel() {
 
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is Mypage Fragment"
-    }
-    val text: LiveData<String> = _text
-    fun getVideoThumbanail(){
-        viewModelScope.launch {
-            Log.d("MypageViewModel_data",repository.getTrendingVideos("").toString())
-            repository.getTrendingVideos("키보드")
-        }
-    }
-}
+    private val _likeItems = MutableLiveData<List<ListItem.VideoItem>>()
+    val likeItems : LiveData<List<ListItem.VideoItem>> get() = _likeItems
 
-class MypageViewModelFactory : ViewModelProvider.Factory {
-    override fun <T : ViewModel> create(
-        modelClass: Class<T>,
-        extras: CreationExtras
-    ): T {
-        val repository = YoutubeRepositoryImpl(RetrofitClient.searchVideoRemoteDataSource)
-        return MypageViewModel(
-            repository
-        ) as T
+    // FavoriteRepository에서 favoriteItems로 초기화한 메서드
+    // favoriteItems = _favoriteItems를 List형으로 가져옴
+    fun getlikeItems(context: Context){
+        _likeItems.value = FavoriteRepository(context).favoriteItems
     }
 }
