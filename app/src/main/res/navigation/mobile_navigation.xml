@@ -22,4 +22,14 @@
         android:name="com.example.blackcows.ui.mypage.MypageFragment"
         android:label="@string/title_mypage"
         tools:layout="@layout/fragment_mypage" />
+
+    <fragment
+        android:id="@+id/navigation_detail"
+        android:name="com.example.blackcows.ui.detail.DetailFragment"
+        android:label="@string/title_detail"
+        tools:layout="@layout/fragment_detail" />
+
+    <action
+        android:id="@+id/action_fragment_to_detailFragment"
+        app:destination="@+id/navigation_detail"/>
 </navigation>
