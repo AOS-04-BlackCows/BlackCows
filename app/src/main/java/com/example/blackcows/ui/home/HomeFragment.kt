@@ -23,7 +23,7 @@ class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
-    private val homeViewModel: HomeViewModel by viewModels { HomeViewModelFactory() }
+    private val homeViewModel: HomeViewModel by viewModels()
     private lateinit var homeViewPagerAdapter: HomeViewPagerAdapter
     private lateinit var homeRecyclerViewAdapter: HomeRecyclerViewAdapter
 
@@ -39,54 +39,7 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        // viewPager 설정
-        homeViewPagerAdapter = HomeViewPagerAdapter(emptyList())
-        binding.homeViewpager.adapter = homeViewPagerAdapter
-
-        // RecyclerView 설정
-        homeRecyclerViewAdapter = HomeRecyclerViewAdapter()
-        binding.homeRecyclerview.layoutManager = LinearLayoutManager(requireContext())
-        binding.homeRecyclerview.adapter = homeRecyclerViewAdapter
-
-        // Spinner 설정
-        val homeCategories = listOf(
-            HomeCategoryDataClass("하드웨어", "28"),
-            HomeCategoryDataClass("소프트웨어", "29"),
-            HomeCategoryDataClass("주변기기","30"),
-            HomeCategoryDataClass("게이밍용품","31")
-        )
-
-        val spinnerAdapter =
-            ArrayAdapter(
-                requireContext(),
-                android.R.layout.simple_spinner_dropdown_item,
-                homeCategories.map { it.name }
-            )
-        binding.homeSpinner.adapter = spinnerAdapter
-
-        // Spinner의 아이템 선택 이벤트 처리
-        binding.homeSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(
-                parent: AdapterView<*>?,
-                view: View?,
-                position: Int,
-                id: Long
-            ) {
-                val selectedCategory = homeCategories[position]
-                homeViewModel.getCategoryVideos(selectedCategory.id)
-                // 선택된 카테고리 쿼리로 비디오 요청
-
-            }
-
-            override fun onNothingSelected(p0: AdapterView<*>?) {
-                // 아무것도 선택되지 않은 경우 처리할 로직이 있을 경우 작성
-            }
-        }
-
-        homeViewModel.categoryVideos.observe(viewLifecycleOwner, Observer { videos ->
-            homeRecyclerViewAdapter.submitList(videos)
-        })
-
     }
+
+
 }
