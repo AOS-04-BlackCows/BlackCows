@@ -31,7 +31,7 @@ class SearchFragment : Fragment() {
     private val binding get() = _binding!!
     private val searchAdapter by lazy { PublicListAdapter() }
 
-    private val searchViewModel by activityViewModels<SearchViewModel> {
+    private val searchViewModel by viewModels<SearchViewModel> {
         SearchViewModelFactory()
     }
 
