@@ -12,18 +12,20 @@ fun List<Item>.toVideoItem(): List<VideoItem> {
             channelTitle = it.snippet?.get(0)?.channelTitle ?: "",
             title = it.snippet?.get(0)?.title ?: "",
             thumbnail = it.snippet?.get(0)?.thumbnails?.high?.url ?: "",
-            description = it.snippet?.get(0)?.description ?: ""
+            description = it.snippet?.get(0)?.description ?: "",
+            videoId = it.id ?: ""
         )
     }
 }
 
-fun List<SearchSnippet>.toSearchVideoItem(): List<VideoItem> {
+fun List<YouTubeItem>.toSearchVideoItem(): List<VideoItem> {
     return this.map {
         VideoItem(
-            channelTitle = it.channelTitle ?: "",
-            title = it.title ?: "",
-            thumbnail = it.thumbnails?.high?.url ?: "",
-            description = it.description ?: ""
+            channelTitle = it.snippet?.channelTitle ?: "",
+            title = it.snippet?.title ?: "",
+            thumbnail = it.snippet?.thumbnails?.high?.url ?: "",
+            description = it.snippet?.description ?: "",
+            videoId = it.id?.videoId ?: ""
         )
     }
 }

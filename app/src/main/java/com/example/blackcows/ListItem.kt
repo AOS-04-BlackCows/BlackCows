@@ -12,6 +12,7 @@ sealed class ListItem : Parcelable {
         val channelTitle: String,
         val title: String,
         val thumbnail: String,
-        val description: String
+        val description: String,
+        val videoId: String
     ) : ListItem()
 }

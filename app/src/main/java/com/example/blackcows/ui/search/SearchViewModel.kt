@@ -21,7 +21,7 @@ private const val TAG = "SearchViewModel"
 class SearchViewModel(private val repository: VideoRepository) : ViewModel() {
 
     var position: Int = 0
-
+    var videoData = ""
     private val _trendingVideos = MutableLiveData<List<ListItem.VideoItem>?>()
     val trendingVideos: LiveData<List<ListItem.VideoItem>?> = _trendingVideos
 
@@ -29,11 +29,11 @@ class SearchViewModel(private val repository: VideoRepository) : ViewModel() {
         viewModelScope.launch {
             runCatching {
 
-                // TODO 아래 코드 설명듣기
                 val items = repository.getSearchVideos(query).items
-                val snippets = items?.mapNotNull { it.snippet }
-                val videos = snippets?.toSearchVideoItem()
+                val videos = items?.toSearchVideoItem()
                 _trendingVideos.value = videos
+
+
             }.onFailure {
                 Log.e(TAG, "getSearchVideos() failed! : ${it.message}")
                 handleException(it)
@@ -53,14 +53,6 @@ class SearchViewModel(private val repository: VideoRepository) : ViewModel() {
             else -> Log.e(TAG, "Unexpected error: $e")
         }
     }
-
-    // TODO 1. 검색 결과 출력 테스트를 먼저 진행
-    // TODO 1-1. 리싸이클러뷰 xml에 추가
-    // TODO 1-2. 리싸이클러뷰 아이템 만들기
-    // TODO 1-3. 리싸이클러뷰에 검색어를 출력하는걸 만들기
-
-    // TODO 2. 검색어를 입력하는 칸 제작
-    // TODO 3. 검색어를 빠르게 입력해주는 UI 제작
 }
 
 
