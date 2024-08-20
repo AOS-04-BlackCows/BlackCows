@@ -16,6 +16,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import com.example.blackcows.ListItem
 import com.example.blackcows.R
 import com.example.blackcows.data.model.SearchCategoryDataSource
 import com.example.blackcows.databinding.FragmentSearchBinding
@@ -33,6 +34,7 @@ class SearchFragment : Fragment() {
 
     private val searchViewModel by viewModels<SearchViewModel> {
         SearchViewModelFactory()
+
     }
 
     override fun onCreateView(
