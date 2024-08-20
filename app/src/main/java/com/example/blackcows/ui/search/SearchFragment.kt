@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AlphaAnimation
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -29,6 +30,7 @@ import com.example.blackcows.databinding.FragmentSearchBinding
 import com.example.blackcows.ui.adapter.PublicListAdapter
 import com.example.blackcows.ui.detail.DetailFragment
 import com.google.android.material.chip.Chip
+import com.google.android.material.chip.ChipDrawable
 import com.google.android.material.chip.ChipGroup
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -81,6 +83,7 @@ class SearchFragment : Fragment() {
         searchAdapter.itemClick = object : PublicListAdapter.ItemClick {
             override fun onClick(view: View, position: Int) {
                 searchViewModel.position = position
+                searchViewModel.trendingVideos.value?.get(position)
                 findNavController().navigate(R.id.action_fragment_to_detailFragment)
             }
         }
@@ -163,12 +166,17 @@ class SearchFragment : Fragment() {
         for (i in categoryDetail) {
             chipGroup.addView(Chip(this.context).apply {
                 text = i.name // text 세팅
-                this.setOnClickListener {
-                    searchViewModel.danawaCategory = i
-                    binding.searchEt.setText(i.name)
-                    chipGroup.removeAllViews()
-                    binding.searchCategory.visibility = View.GONE
-                    binding.searchChip.visibility = View.GONE
+                setTextColor(resources.getColor(R.color.white, null)) // 텍스트 색상 설정
+                setChipDrawable(ChipDrawable.createFromAttributes(context, null, 0, R.style.CustomChipStyle))
+                with(this) {
+                    chipStrokeWidth = 0.0f
+                    setOnClickListener {
+                        searchViewModel.danawaCategory = i
+                        binding.searchEt.setText(i.name)
+                        chipGroup.removeAllViews()
+                        binding.searchCategory.visibility = View.GONE
+                        binding.searchChip.visibility = View.GONE
+                    }
                 }
             })
         }
