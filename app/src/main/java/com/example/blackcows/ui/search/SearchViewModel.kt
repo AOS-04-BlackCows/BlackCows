@@ -28,6 +28,8 @@ class SearchViewModel(private val repository: VideoRepository) : ViewModel() {
     fun getSearchVideos(query: String){
         viewModelScope.launch {
             runCatching {
+
+                // TODO 아래 코드 설명듣기
                 val items = repository.getSearchVideos(query).items
                 val snippets = items?.mapNotNull { it.snippet }
                 val videos = snippets?.toSearchVideoItem()
