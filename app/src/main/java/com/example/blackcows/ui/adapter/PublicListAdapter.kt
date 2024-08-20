@@ -14,7 +14,7 @@ import com.example.blackcows.R
 
 class PublicListAdapter : ListAdapter<ListItem.VideoItem, PublicListAdapter.SearchViewHolder>(object : DiffUtil.ItemCallback<ListItem.VideoItem>() {
     override fun areItemsTheSame(oldItem: ListItem.VideoItem, newItem: ListItem.VideoItem): Boolean {
-        return oldItem.thumbnail == newItem.thumbnail && oldItem.title == newItem.title
+        return oldItem.videoId == newItem.videoId
     }
 
     override fun areContentsTheSame(oldItem: ListItem.VideoItem, newItem: ListItem.VideoItem): Boolean {
