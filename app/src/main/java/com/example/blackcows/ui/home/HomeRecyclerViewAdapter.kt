@@ -1,11 +1,13 @@
 package com.example.blackcows.ui.home
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.blackcows.ListItem
 import com.example.blackcows.databinding.HomeItemRecyclerviewBinding
+import com.example.blackcows.ui.adapter.PublicListAdapter.ItemClick
 import kotlinx.coroutines.NonDisposableHandle.parent
 
 
@@ -23,7 +25,6 @@ class HomeRecyclerViewAdapter : RecyclerView.Adapter<HomeRecyclerViewAdapter.Cat
         notifyDataSetChanged()
     }
 
-
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -35,6 +36,11 @@ class HomeRecyclerViewAdapter : RecyclerView.Adapter<HomeRecyclerViewAdapter.Cat
 
     override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
         holder.bind(categoryVideoList[position])
+        // 클릭 이벤트 바인딩 해주기
+        holder.itemView.setOnClickListener{
+            // itemClick?.onClick(item = categoryVideoList[position])
+        }
+
     }
 
     override fun getItemCount() = categoryVideoList.size
@@ -49,4 +55,10 @@ class HomeRecyclerViewAdapter : RecyclerView.Adapter<HomeRecyclerViewAdapter.Cat
             Glide.with(binding.root.context).load(video.thumbnail).into(binding.ivCategory)
         }
     }
+
+    interface ItemClick {
+        fun onClick(item : ListItem.VideoItem, position: Int)
+    }
+
+    var itemClick : ItemClick? = null
 }

@@ -4,15 +4,16 @@ import com.example.blackcows.data.model.YouTubeSearchResponse
 import com.example.blackcows.data.model.VideoResponse
 import com.example.blackcows.data.remote.SearchVideoRemoteDataSource
 
-class YoutubeRepositoryImpl(private val searchVideoRemoteDataSource: SearchVideoRemoteDataSource) : VideoRepository {
+class YoutubeRepositoryImpl(
+    private val searchVideoRemoteDataSource: SearchVideoRemoteDataSource
+) : VideoRepository {
+
     override suspend fun getTrendingVideos(region: String): VideoResponse {
         return searchVideoRemoteDataSource.getTrendingVideos()
     }
-    
+
     override suspend fun getSearchVideos(query: String): YouTubeSearchResponse {
         return searchVideoRemoteDataSource.getSearchVideos(query)
     }
-    override suspend fun getCategoryVideos(category: String): VideoResponse {
-        TODO("Not yet implemented")
-    }
+
 }
