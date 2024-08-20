@@ -15,6 +15,7 @@ class YoutubeRepositoryImpl(private val searchVideoRemoteDataSource: SearchVideo
 
     // home 카테고리 서치
     override suspend fun getCategoryVideos(categoryId : String): VideoResponse {
-        return searchVideoRemoteDataSource.getTrendingVideos(query = categoryId)
+        //query = categoryId로 되어있던 거 수정
+        return searchVideoRemoteDataSource.getTrendingVideos(categoryId)
     }
 }

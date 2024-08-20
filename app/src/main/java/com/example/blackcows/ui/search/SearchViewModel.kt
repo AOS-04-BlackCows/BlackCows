@@ -13,7 +13,6 @@ import com.example.blackcows.network.RetrofitClient
 import com.example.blackcows.toSearchVideoItem
 import kotlinx.coroutines.launch
 import com.example.blackcows.ListItem
-import com.example.blackcows.toVideoItem
 import okio.IOException
 import retrofit2.HttpException
 
