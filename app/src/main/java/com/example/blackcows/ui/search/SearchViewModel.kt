@@ -13,6 +13,8 @@ import com.example.blackcows.network.RetrofitClient
 import com.example.blackcows.toSearchVideoItem
 import kotlinx.coroutines.launch
 import com.example.blackcows.ListItem
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.runBlocking
 import com.example.blackcows.data.model.SearchSubCategory
 import okio.IOException
 import retrofit2.HttpException
@@ -22,6 +24,7 @@ private const val TAG = "SearchViewModel"
 
 class SearchViewModel(private val repository: VideoRepository) : ViewModel() {
 
+
     var position: Int = 0
     lateinit var danawaCategory : SearchSubCategory
 
@@ -29,7 +32,7 @@ class SearchViewModel(private val repository: VideoRepository) : ViewModel() {
 
     private val _trendingVideos = MutableLiveData<List<ListItem.VideoItem>?>()
     val trendingVideos: LiveData<List<ListItem.VideoItem>?> = _trendingVideos
-
+    private var searchKeyword: String = ""
     fun getSearchVideos(query: String, pageToken: String? = null){
         viewModelScope.launch {
             runCatching {
@@ -39,11 +42,11 @@ class SearchViewModel(private val repository: VideoRepository) : ViewModel() {
                 _trendingVideos.value = videos
 
                 nextPageToken = response.nextPageToken?: ""
+                searchKeyword = query
             }.onFailure {
                 Log.e(TAG, "getSearchVideos() failed! : ${it.message}")
                 handleException(it)
             }
-//            Log.d("repository.getSearchVideos(query)", "repository.getSearchVideos(query) = ${repository.getSearchVideos(query)}")
         }
     }
 
@@ -66,6 +69,7 @@ class SearchViewModel(private val repository: VideoRepository) : ViewModel() {
             }
         }
     }
+
     private fun handleException(e: Throwable) {
         when (e) {
             is HttpException -> {
