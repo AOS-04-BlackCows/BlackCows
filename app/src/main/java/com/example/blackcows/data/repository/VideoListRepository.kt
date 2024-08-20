@@ -7,6 +7,5 @@ interface VideoRepository {
     suspend fun getTrendingVideos(region: String): VideoResponse
   
     suspend fun getSearchVideos(query: String, pageToken: String?): YouTubeSearchResponse
-    // home 카테고리 서치
-    suspend fun getCategoryVideos(category : String) : VideoResponse
+
 }

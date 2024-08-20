@@ -15,6 +15,7 @@ import kotlinx.coroutines.launch
 import com.example.blackcows.ListItem
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
+import com.example.blackcows.data.model.SearchSubCategory
 import okio.IOException
 import retrofit2.HttpException
 import java.util.Collections.addAll
@@ -25,7 +26,10 @@ class SearchViewModel(private val repository: VideoRepository) : ViewModel() {
 
 
     var position: Int = 0
+    lateinit var danawaCategory : SearchSubCategory
+
     var nextPageToken: String = ""
+
     private val _trendingVideos = MutableLiveData<List<ListItem.VideoItem>?>()
     val trendingVideos: LiveData<List<ListItem.VideoItem>?> = _trendingVideos
     private var searchKeyword: String = ""

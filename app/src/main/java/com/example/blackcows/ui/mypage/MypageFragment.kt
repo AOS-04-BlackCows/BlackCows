@@ -16,14 +16,18 @@ class MypageFragment : Fragment() {
 
     //context, viewModel
     private lateinit var mContext : Context
-    private val mypageViewModel : MypageViewModel by viewModels()
+    private val mypageViewModel : MypageViewModel by activityViewModels()
 
     //binding
     private var _binding: FragmentMypageBinding? = null
     private val binding get() = _binding!!
 
     //Adapter
-    private val mypageAdapter by lazy { PublicListAdapter() }
+    private lateinit var mypageAdapter : MypageListAdapter
+
+    //좋아요 한 Item
+    private var likedItems: List<ListItem.VideoItem> = listOf()
+
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -67,10 +71,16 @@ class MypageFragment : Fragment() {
         //ViewModel 좋아요 한 items 가져옴
         mypageViewModel.getlikeItems(mContext)
 
+
+        mypageAdapter = MypageListAdapter(mContext).apply {
+            items = likedItems.toMutableList()
+        }
+
         //데이터 수정 여부에 따라 업데이트 되도록 notify 이용
         mypageViewModel.likeItems.observe(viewLifecycleOwner){like ->
-            mypageAdapter.items = like.toMutableList()
-            mypageAdapter.notifyDataSetChanged()
+//            mypageAdapter.items = like.toMutableList()
+//            mypageAdapter.notifyDataSetChanged()
+            mypageAdapter.submitList(like)
         }
         return root
     }
@@ -82,6 +92,14 @@ class MypageFragment : Fragment() {
         binding.apply {
             mypageRecyclerView.layoutManager = GridLayoutManager(this@MypageFragment.context,2)
             mypageRecyclerView.adapter = mypageAdapter
+            mypageAdapter.itemClick = object : MypageListAdapter.ItemClick {
+                override fun onClick(view: View, position: Int) {
+
+                    Toast.makeText(this@MypageFragment.context, "클릭이 되어버렸다", Toast.LENGTH_SHORT).show()
+
+                    findNavController().navigate(R.id.action_fragment_to_detailFragment)
+                }
+            }
             ivMypageProfile.clipToOutline = true
         }
     }
