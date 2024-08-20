@@ -21,6 +21,10 @@ class PublicListAdapter : ListAdapter<ListItem.VideoItem, PublicListAdapter.Sear
         return oldItem == newItem
     }
 }) {
+
+    //MypageFragment에서 사용
+    var items = mutableListOf<ListItem.VideoItem>()
+
     interface ItemClick {
         fun onClick(view: View, position: Int)
     }

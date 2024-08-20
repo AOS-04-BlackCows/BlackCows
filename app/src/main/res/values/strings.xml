@@ -3,7 +3,9 @@
     <string name="title_home">Home</string>
     <string name="title_search">Search</string>
     <string name="title_mypage">MyPage</string>
-  
+    <string name="title_detail">Detail</string>
+
+    <!-- search Fragment -->
     <string name="search_hint">검색어를 입력해주세요.</string>
     <string name="search_btn">검색</string>
     <string name="search_hw">하드웨어</string>
@@ -16,8 +18,10 @@
   
 
     <!-- Home Fragment -->
+
     <!-- My Page Fragment -->
     <!-- My Page Fragment -->
     <!-- My Page Fragment -->
-    <!-- My Page Fragment -->
+    <string name="mypage_name">내 이름</string>
+    <string name="mypage_introduction">인삿말</string>
 </resources>
