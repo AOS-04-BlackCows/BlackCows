@@ -25,8 +25,7 @@ private const val TAG = "SearchViewModel"
 class SearchViewModel(private val repository: VideoRepository) : ViewModel() {
 
 
-    var position: Int = 0
-    lateinit var danawaCategory : SearchSubCategory
+
 
     var nextPageToken: String = ""
 
