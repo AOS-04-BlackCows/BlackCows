@@ -12,18 +12,12 @@ import com.example.blackcows.R
 
 // 디테일 페이지에서 데이터 가져오기
 class HomeViewPagerAdapter (private var videos: List<ListItem.VideoItem>) : PagerAdapter(){
-    override fun getCount() = videos.size
-
-    override fun isViewFromObject(view: View, `object`: Any): Boolean = view == `object`
-
-    override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {
-        super.destroyItem(container, position, `object`)
-        container.removeView(`object` as View)
+    override fun getCount(): Int {
+        TODO("Not yet implemented")
     }
 
-    fun ubdateVideos(newVideos : List<ListItem.VideoItem>) {
-        videos = newVideos
-        notifyDataSetChanged()
+    override fun isViewFromObject(view: View, `object`: Any): Boolean {
+        TODO("Not yet implemented")
     }
 
 }

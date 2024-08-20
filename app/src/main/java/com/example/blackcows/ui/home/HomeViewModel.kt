@@ -1,6 +1,5 @@
 package com.example.blackcows.ui.home
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -11,20 +10,25 @@ import com.example.blackcows.ListItem
 import com.example.blackcows.data.repository.VideoRepository
 import com.example.blackcows.data.repository.YoutubeRepositoryImpl
 import com.example.blackcows.network.RetrofitClient
+import com.example.blackcows.toSearchVideoItem
 import kotlinx.coroutines.launch
 
 class HomeViewModel (private val repository : VideoRepository) : ViewModel() {
 
+    private val _homeVideos = MutableLiveData<List<ListItem.VideoItem>>()
+    val homeVideos: LiveData<List<ListItem.VideoItem>> = _homeVideos
 
-    private val _categoryVideos = MutableLiveData<List<ListItem.VideoItem>>()
-    val categoryVideos : LiveData<List<ListItem.VideoItem>> = _categoryVideos
-
-    fun getCategoryVideos(categoryId : String){
+    // 주어진 query를 사용해 비디오를 검색하고 결과를 처리하는 역할
+    fun getHomeVideos(query: String) {
         viewModelScope.launch {
             try {
-                val response = repository.getCategoryVideos(categoryId)
-            } catch (e: Exception) {
-                Log.e("HomeViewModel", "Error fetching category videos", e)
+                val items = repository.getSearchVideos(query).items
+                val snippets = items?.mapNotNull { it.snippet }
+                snippets?.let {
+                    _homeVideos.value = it.toSearchVideoItem()
+                }
+            } catch (e : Exception) {
+                _homeVideos.value = emptyList()
             }
         }
     }

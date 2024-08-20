@@ -7,7 +7,9 @@ import retrofit2.http.Query
 
 private const val API_MAX_RESULT = 20
 private const val API_REGION = "KR"
+
 private const val API_KEY = "AIzaSyCGmiXhF9ZFQrtFUslYwGDxWoitXL085Dw"//BuildConfig.YOUTUBE_API_KEY
+
 //화민 : AIzaSyCf0LT94hMzBUrsNmHLADw_6GPW0Q39l2Y
 //문기 : AIzaSyA26WhxZpd4IkYzUy784K98mPqPqHzMkiM
 //지민 : AIzaSyA6rDu-BRuKFCsdrjLIr_XjWHjjMb6Qq34
@@ -34,4 +36,6 @@ interface SearchVideoRemoteDataSource {
         @Query("regionCode") regionCode: String = "KR",
         @Query("key") apiKey: String = API_KEY
     ): YouTubeSearchResponse
+
+
 }
