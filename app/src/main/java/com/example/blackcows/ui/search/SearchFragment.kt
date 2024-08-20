@@ -35,7 +35,6 @@ class SearchFragment : Fragment() {
 
     private val searchViewModel by activityViewModels<SearchViewModel> {
         SearchViewModelFactory()
-
     }
 
     override fun onCreateView(
@@ -105,6 +104,9 @@ class SearchFragment : Fragment() {
         binding.searchBtn.setOnClickListener {
             searchViewModel.danawaCategory = SearchSubCategory(binding.searchEt.text.toString(), "0")
             getSearchVideos(binding.searchEt.text.toString())
+        }
+        binding.searchMore.setOnClickListener {
+            addNextPage(searchKeyword, nextPageToken)
         }
     }
     private fun clearSearchEt () {

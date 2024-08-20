@@ -16,6 +16,7 @@ import com.example.blackcows.ListItem
 import com.example.blackcows.data.model.SearchSubCategory
 import okio.IOException
 import retrofit2.HttpException
+import java.util.Collections.addAll
 
 private const val TAG = "SearchViewModel"
 
@@ -24,26 +25,46 @@ class SearchViewModel(private val repository: VideoRepository) : ViewModel() {
     var position: Int = 0
     lateinit var danawaCategory : SearchSubCategory
 
+    var nextPageToken: String = ""
     private val _trendingVideos = MutableLiveData<List<ListItem.VideoItem>?>()
     val trendingVideos: LiveData<List<ListItem.VideoItem>?> = _trendingVideos
 
-    fun getSearchVideos(query: String){
+    fun getSearchVideos(query: String, pageToken: String? = null){
         viewModelScope.launch {
             runCatching {
-
-                val items = repository.getSearchVideos(query).items
+                val response = repository.getSearchVideos(query, pageToken)
+                val items = response.items
                 val videos = items?.toSearchVideoItem()
                 _trendingVideos.value = videos
 
-
+                nextPageToken = response.nextPageToken?: ""
             }.onFailure {
                 Log.e(TAG, "getSearchVideos() failed! : ${it.message}")
                 handleException(it)
             }
-            Log.d("repository.getSearchVideos(query)", "repository.getSearchVideos(query) = ${repository.getSearchVideos(query)}")
+//            Log.d("repository.getSearchVideos(query)", "repository.getSearchVideos(query) = ${repository.getSearchVideos(query)}")
         }
     }
 
+    fun addNextPage (query: String, pageToken: String?) {
+        viewModelScope.launch {
+            runCatching {
+                val response = repository.getSearchVideos(query, pageToken)
+                val items = response.items
+                val videos = items?.toSearchVideoItem()
+                _trendingVideos.value = _trendingVideos.value!!.toMutableList().apply {
+                    if (videos != null) {
+                        addAll(videos)
+                    }
+                }
+
+                nextPageToken = response.nextPageToken?: ""
+            }.onFailure {
+                Log.e(TAG, "getSearchVideos() failed! : ${it.message}")
+                handleException(it)
+            }
+        }
+    }
     private fun handleException(e: Throwable) {
         when (e) {
             is HttpException -> {

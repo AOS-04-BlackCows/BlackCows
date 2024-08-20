@@ -27,10 +27,13 @@ interface SearchVideoRemoteDataSource {
     @GET("search")
     suspend fun getSearchVideos(
         @Query("q") query: String,
+        @Query("pageToken") pageToken: String?,
         @Query("part") part: String = "snippet",
         @Query("chart") chart: String = "mostPopular",
         @Query("maxResults") maxResults: Int = API_MAX_RESULT,
         @Query("regionCode") regionCode: String = "KR",
         @Query("key") apiKey: String = API_KEY
     ): YouTubeSearchResponse
+
+
 }
