@@ -19,7 +19,7 @@
             android:textStyle="bold" />
 
         <!-- 인기 동영상을 위한 ViewPager -->
-        <androidx.viewpager.widget.ViewPager
+        <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/home_viewpager"
             android:layout_width="match_parent"
             android:layout_height="200dp"
@@ -31,7 +31,7 @@
             android:id="@+id/tv_category_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="카테고리 별 영상"
+            android:text="카테고리 영상"
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -39,7 +39,7 @@
         <Spinner
             android:id="@+id/home_spinner"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="25dp"
             android:layout_marginTop="8dp"
             android:background="@drawable/bg_home_spinner" />
 

@@ -35,10 +35,11 @@ class HomeRecyclerViewAdapter : RecyclerView.Adapter<HomeRecyclerViewAdapter.Cat
     }
 
     override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
-        holder.bind(categoryVideoList[position])
+        val videoItem = categoryVideoList[position]
+        holder.bind(videoItem)
         // 클릭 이벤트 바인딩 해주기
-        holder.itemView.setOnClickListener{
-            // itemClick?.onClick(item = categoryVideoList[position])
+        holder.itemView.setOnClickListener {
+            itemClick?.onClick(videoItem, position)
         }
 
     }
@@ -52,13 +53,15 @@ class HomeRecyclerViewAdapter : RecyclerView.Adapter<HomeRecyclerViewAdapter.Cat
             // 텍스트 뷰 설정
             binding.tvCategoryTitle.text = video.title
             // 이미지뷰 로드
-            Glide.with(binding.root.context).load(video.thumbnail).into(binding.ivCategory)
+            Glide.with(binding.root.context)
+                .load(video.thumbnail)
+                .into(binding.ivCategory)
         }
     }
 
     interface ItemClick {
-        fun onClick(item : ListItem.VideoItem, position: Int)
+        fun onClick(item: ListItem.VideoItem, position: Int)
     }
 
-    var itemClick : ItemClick? = null
+    var itemClick: ItemClick? = null
 }

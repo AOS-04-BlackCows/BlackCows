@@ -26,6 +26,7 @@ class SearchViewModel(private val repository: VideoRepository) : ViewModel() {
     lateinit var danawaCategory : SearchSubCategory
 
     var nextPageToken: String = ""
+
     private val _trendingVideos = MutableLiveData<List<ListItem.VideoItem>?>()
     val trendingVideos: LiveData<List<ListItem.VideoItem>?> = _trendingVideos
 

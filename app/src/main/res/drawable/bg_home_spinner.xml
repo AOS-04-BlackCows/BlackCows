@@ -5,15 +5,16 @@
             <item>
                 <shape android:shape="rectangle">
                     <solid android:color="@color/highlightYellow"/>
-                    <corners android:radius="30dp"/>
-                    <padding android:right="12dp"/>
+                    <corners android:radius="5dp"/>
+                    <padding android:right="20dp"/>
+                    <padding android:left="20dp"/>
                 </shape>
             </item>
             <item
                 android:drawable="@drawable/home_arrow_drop_down_24"
                 android:gravity="end|center"
                 android:width="20dp"
-                android:height="20dp"/>
+                android:height="20dp" />
         </layer-list>
     </item>
 </selector>

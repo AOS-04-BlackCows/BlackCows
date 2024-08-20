@@ -13,22 +13,36 @@ import com.example.blackcows.network.RetrofitClient
 import com.example.blackcows.toSearchVideoItem
 import kotlinx.coroutines.launch
 
-class HomeViewModel (private val repository : VideoRepository) : ViewModel() {
+class HomeViewModel(private val repository: VideoRepository) : ViewModel() {
 
+    // 카테고리
     private val _homeVideos = MutableLiveData<List<ListItem.VideoItem>>()
     val homeVideos: LiveData<List<ListItem.VideoItem>> = _homeVideos
 
-    // 주어진 query를 사용해 비디오를 검색하고 결과를 처리하는 역할
-    fun getHomeVideos(query: String) {
+    fun getHomeVideos(query: String, pageToken: String?) {
         viewModelScope.launch {
             try {
-                val items = repository.getSearchVideos(query).items
-                val snippets = items?.mapNotNull { it.snippet }
-                snippets?.let {
-                    _homeVideos.value = it.toSearchVideoItem()
-                }
+                val response = repository.getSearchVideos(query, pageToken)
+                val items = response.items
+                _homeVideos.value = items?.toSearchVideoItem()
             } catch (e : Exception) {
                 _homeVideos.value = emptyList()
+            }
+        }
+    }
+
+    // 인기영상
+    private val _popularVideos = MutableLiveData<List<ListItem.VideoItem>>()
+    val popularVideos : LiveData<List<ListItem.VideoItem>> = _popularVideos
+
+    fun getPopularVideos(query: String, pageToken: String?) {
+        viewModelScope.launch {
+            try {
+                val response = repository.getSearchVideos(query, pageToken)
+                val items = response.items
+                _popularVideos.value = items?.toSearchVideoItem()
+                } catch (e : Exception) {
+                    _popularVideos.value = emptyList()
             }
         }
     }
