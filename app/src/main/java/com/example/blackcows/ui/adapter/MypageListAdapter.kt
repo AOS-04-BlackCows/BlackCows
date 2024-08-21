@@ -1,6 +1,7 @@
 package com.example.blackcows.ui.adapter
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -41,6 +42,7 @@ class MypageListAdapter(val mContext : Context) : ListAdapter<ListItem.VideoItem
         Glide.with(holder.listThumbnail.context)
             .load(getItem(position).thumbnail)
             .into(holder.listThumbnail)
+        Log.d("log thumbnail","${holder.listThumbnail}")
         holder.listTitle.text = getItem(position).title
 //        holder.listTitle.text = "테스트"
         holder.listWriter.text = getItem(position).channelTitle
