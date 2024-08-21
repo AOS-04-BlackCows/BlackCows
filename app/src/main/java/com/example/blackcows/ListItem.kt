@@ -9,10 +9,10 @@ sealed class ListItem : Parcelable {
 
     @Parcelize
     data class VideoItem(
-        val channelTitle: String,
-        val title: String,
-        val thumbnail: String,
-        val description: String,
-        val videoId: String
+        var channelTitle: String,
+        var title: String,
+        var thumbnail: String,
+        var description: String,
+        var videoId: String
     ) : ListItem()
 }

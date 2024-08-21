@@ -29,6 +29,8 @@ import com.example.blackcows.data.model.SearchSubCategory
 import com.example.blackcows.databinding.FragmentSearchBinding
 import com.example.blackcows.ui.adapter.PublicListAdapter
 import com.example.blackcows.ui.detail.DetailFragment
+import com.example.blackcows.ui.detail.DetailViewModel
+import com.example.blackcows.ui.detail.DetailViewModelFactory
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipDrawable
 import com.google.android.material.chip.ChipGroup
@@ -46,6 +48,10 @@ class SearchFragment : Fragment() {
 
     private val searchViewModel by activityViewModels<SearchViewModel> {
         SearchViewModelFactory()
+    }
+
+    private val detailViewModel by activityViewModels<DetailViewModel> {
+        DetailViewModelFactory()
     }
 
     override fun onCreateView(
@@ -81,9 +87,10 @@ class SearchFragment : Fragment() {
         }
         searchRecyclerView.adapter = searchAdapter
         searchAdapter.itemClick = object : PublicListAdapter.ItemClick {
-            override fun onClick(view: View, position: Int) {
+            override fun onClick(item: ListItem.VideoItem, position: Int) {
                 searchViewModel.position = position
                 searchViewModel.trendingVideos.value?.get(position)
+                detailViewModel.setDetailVideoData(item)
                 findNavController().navigate(R.id.action_fragment_to_detailFragment)
             }
         }

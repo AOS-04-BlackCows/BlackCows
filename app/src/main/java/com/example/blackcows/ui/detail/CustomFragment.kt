@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import com.example.blackcows.ListItem
 import com.example.blackcows.R
 import com.example.blackcows.databinding.FragmentCustomBinding
 import com.example.blackcows.ui.adapter.PublicListAdapter
@@ -22,6 +23,10 @@ class CustomFragment : Fragment() {
 
     private val searchViewModel by activityViewModels<SearchViewModel> {
         SearchViewModelFactory()
+    }
+
+    private val detailViewModel by activityViewModels<DetailViewModel> {
+        DetailViewModelFactory()
     }
 
     override fun onCreateView(
@@ -46,8 +51,9 @@ class CustomFragment : Fragment() {
         customRecyclerView.layoutManager = GridLayoutManager(this@CustomFragment.context, 2)
         customRecyclerView.adapter = searchAdapter
         searchAdapter.itemClick = object : PublicListAdapter.ItemClick {
-            override fun onClick(view: View, position: Int) {
+            override fun onClick(item: ListItem.VideoItem, position: Int) {
                 searchViewModel.position = position
+                detailViewModel.setDetailVideoData(item)
                 findNavController().navigate(R.id.action_fragment_to_detailFragment)
             }
         }
