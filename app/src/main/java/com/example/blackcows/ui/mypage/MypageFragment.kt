@@ -17,7 +17,6 @@ import com.example.blackcows.R
 import com.example.blackcows.databinding.FragmentMypageBinding
 import com.example.blackcows.ui.adapter.MypageListAdapter
 import com.example.blackcows.ui.adapter.PublicListAdapter
-import com.example.blackcows.ListItem
 
 class MypageFragment : Fragment() {
 
