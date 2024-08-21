@@ -17,7 +17,6 @@ class DetailViewModel(private val repository : VideoRepository) : ViewModel() {
     val detailVideos: LiveData<ListItem.VideoItem> = _detailVideos
     var position: Int = 0
     var danawaCategory : SearchSubCategory = SearchSubCategory("","0")
-    var videoData:ListItem.VideoItem = ListItem.VideoItem("testT", " ", " ", " ", " ")
     fun setDetailVideoData(item: ListItem.VideoItem) {
         _detailVideos.value = item
     }

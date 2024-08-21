@@ -58,7 +58,7 @@ class DetailFragment : DialogFragment() {
             tab.text = arrayListOf("상세 정보", "관련 영상")[position]
         }.attach()
 
-        Log.d("detailViewModel.videoData[0]", "detailViewModel.videoData[0] = ${detailViewModel.videoData}")
+//        Log.d("detailViewModel.videoData[0]", "detailViewModel.videoData[0] = ${detailViewModel.videoData}")
         return root
     }
 
@@ -91,21 +91,17 @@ class DetailFragment : DialogFragment() {
             override fun onReady(youTubePlayer: YouTubePlayer) {
                 super.onReady(youTubePlayer)
 
-//                Log.d(
-//                    "영상아이디 내놔!!!",
-//                    "videoId:${videoId} and ${detailViewModel.videoData.toString()}"
-//                )
                 youTubePlayer.loadVideo(videoId, 0f)
             }
         })
 
 
         val video = ListItem.VideoItem(
-            detailViewModel.videoData.channelTitle,
-            detailViewModel.videoData.title,
-            detailViewModel.videoData.thumbnail,
-            detailViewModel.videoData.description,
-            detailViewModel.videoData.videoId
+            detailViewModel.detailVideos.value?.channelTitle?: "응애",
+            detailViewModel.detailVideos.value?.title?: "응애",
+            detailViewModel.detailVideos.value?.thumbnail?: "응애",
+            detailViewModel.detailVideos.value?.description?: "응애",
+            detailViewModel.detailVideos.value?.videoId?: "응애"
         )
 
         binding.btnFavrite.setOnClickListener {
