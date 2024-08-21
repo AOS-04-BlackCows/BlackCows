@@ -52,7 +52,7 @@ class CustomFragment : Fragment() {
         customRecyclerView.adapter = searchAdapter
         searchAdapter.itemClick = object : PublicListAdapter.ItemClick {
             override fun onClick(item: ListItem.VideoItem, position: Int) {
-                searchViewModel.position = position
+                detailViewModel.position = position
                 detailViewModel.setDetailVideoData(item)
                 findNavController().navigate(R.id.action_fragment_to_detailFragment)
             }
@@ -61,6 +61,7 @@ class CustomFragment : Fragment() {
     private fun initViewModel() = with(searchViewModel) {
         trendingVideos.observe(viewLifecycleOwner) {
             searchAdapter.submitList(it)
+            searchAdapter.searchItems = it?.toMutableList() ?: mutableListOf<ListItem.VideoItem>()
         }
     }
 
