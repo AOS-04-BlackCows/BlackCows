@@ -31,10 +31,8 @@ class DetailFragment : DialogFragment() {
 
     private var _binding: FragmentDetailBinding? = null
     private val binding get() = _binding!!
-
     private val detailViewModel by activityViewModels<DetailViewModel> { DetailViewModelFactory() }
 
-    private val videoData = detailViewModel.detailVideos.value?.get(detailViewModel.position)
     private lateinit var viewPager: ViewPager2
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -60,6 +58,7 @@ class DetailFragment : DialogFragment() {
             tab.text = arrayListOf("상세 정보", "관련 영상")[position]
         }.attach()
 
+        Log.d("detailViewModel.videoData[0]", "detailViewModel.videoData[0] = ${detailViewModel.videoData}")
         return root
     }
 
@@ -69,11 +68,19 @@ class DetailFragment : DialogFragment() {
 //        detailViewModel.getVideoThumbanail()
     }
 
+
     private fun initView() {
-        binding.tvToolbarTitle.text = videoData?.title
-        binding.tvSubTitle.text = videoData?.channelTitle
+        var videoId = ""
+        Log.d("detailVideos", "${detailViewModel.detailVideos.value}")
+        detailViewModel.detailVideos.observe(viewLifecycleOwner) {
+            binding.tvToolbarTitle.text = it.title
+            binding.tvSubTitle.text = it.channelTitle
+            videoId = it.videoId ?: "3YSuUuNCocY"
+        }
+//        binding.tvToolbarTitle.text = detailViewModel.videoData.title
+//        binding.tvSubTitle.text = detailViewModel.videoData.channelTitle
         lifecycle.addObserver(binding.vvVideo)
-        val videoId = videoData?.videoId ?: "3YSuUuNCocY"
+//        val videoId = detailViewModel.videoData.videoId ?: "3YSuUuNCocY"
         val danawaCode = if (detailViewModel.danawaCategory.category == "0") {
             "https://search.danawa.com/dsearch.php?query=" + detailViewModel.danawaCategory.name
         } else {
@@ -84,21 +91,21 @@ class DetailFragment : DialogFragment() {
             override fun onReady(youTubePlayer: YouTubePlayer) {
                 super.onReady(youTubePlayer)
 
-                Log.d(
-                    "영상아이디 내놔!!!",
-                    "videoId:${videoId} and ${videoData.toString()}"
-                )
+//                Log.d(
+//                    "영상아이디 내놔!!!",
+//                    "videoId:${videoId} and ${detailViewModel.videoData.toString()}"
+//                )
                 youTubePlayer.loadVideo(videoId, 0f)
             }
         })
 
 
         val video = ListItem.VideoItem(
-            videoData?.channelTitle ?: "체널명 없음",
-            videoData?.title ?: "영상 제목 없음",
-            videoData?.thumbnail?: "썸네일 없음",
-            videoData?.description?: "영상설명 없음",
-            videoData?.videoId?: "영상 없음"
+            detailViewModel.videoData.channelTitle,
+            detailViewModel.videoData.title,
+            detailViewModel.videoData.thumbnail,
+            detailViewModel.videoData.description,
+            detailViewModel.videoData.videoId
         )
 
         binding.btnFavrite.setOnClickListener {
@@ -120,6 +127,7 @@ class DetailFragment : DialogFragment() {
             startActivity(intent)
         }
 
+        Log.d("detailViewModel.detailVideos","detailViewModel.detailVideos = ${detailViewModel.detailVideos.value}")
     }
 
     override fun onDestroyView() {

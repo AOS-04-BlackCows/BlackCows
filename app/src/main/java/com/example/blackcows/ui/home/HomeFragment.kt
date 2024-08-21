@@ -21,6 +21,8 @@ import com.example.blackcows.data.remote.SearchVideoRemoteDataSource
 import com.example.blackcows.data.repository.YoutubeRepositoryImpl
 import com.example.blackcows.databinding.FragmentHomeBinding
 import com.example.blackcows.ui.adapter.PublicListAdapter
+import com.example.blackcows.ui.detail.DetailViewModel
+import com.example.blackcows.ui.detail.DetailViewModelFactory
 import com.example.blackcows.ui.search.SearchViewModel
 import com.example.blackcows.ui.search.SearchViewModelFactory
 import retrofit2.http.POST
@@ -36,11 +38,14 @@ class HomeFragment : Fragment() {
 
     private val searchViewModel by activityViewModels<SearchViewModel> {
         SearchViewModelFactory()
-
     }
 
     private val homeViewModel by viewModels<HomeViewModel> {
         HomeViewModelFactory()
+    }
+
+    private val detailViewModel by activityViewModels<DetailViewModel> {
+        DetailViewModelFactory()
     }
 
 
@@ -92,7 +97,9 @@ class HomeFragment : Fragment() {
         homeRecyclerViewAdapter.itemClick = object : HomeRecyclerViewAdapter.ItemClick {
             override fun onClick(item : ListItem.VideoItem, position: Int) {
                 Log.d("homeFragment","RecyclerView-Category-Click")
-                searchViewModel.position = position
+                detailViewModel.position = position
+                detailViewModel.setDetailVideoData(item)
+                Log.d("homeFragment","$item")
                 findNavController().apply {
                     navigate(R.id.action_fragment_to_detailFragment)
                 }
@@ -104,6 +111,7 @@ class HomeFragment : Fragment() {
             override fun onClick(item : ListItem.VideoItem, position: Int) {
                 Log.d("homeFragment","ViewPager-Popular-Click")
                 searchViewModel.position = position
+                detailViewModel.setDetailVideoData(item)
                 findNavController().apply {
                     navigate(R.id.action_fragment_to_detailFragment)
                 }
