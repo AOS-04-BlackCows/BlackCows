@@ -75,13 +75,13 @@ class PublicListAdapter : ListAdapter<ListItem.VideoItem, RecyclerView.ViewHolde
             holder.listTitle.text = getItem(position).title
             holder.listWriter.text = getItem(position).channelTitle
             holder.itemView.setOnClickListener {
-                itemClick?.onClick(it, position)
+                itemClick?.onClick(getItem(position), position)
             }
         }
     }
 
     interface ItemClick {
-        fun onClick(view: View, position: Int)
+        fun onClick(item: ListItem.VideoItem, position: Int)
     }
 
     var itemClick : ItemClick? = null
